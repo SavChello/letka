@@ -1,7 +1,8 @@
-1 4 3 2 -3 -1
-1 2 1 1 -1 NAN
-1 6g 5 2 NAN NAN
+1 4 3 2 -3 NaN
+1 2 1 1 -1 NaN
+1 6g 5 2 NaN NaN
 -1.0 -3.0 -2.0 2 -2.0 -1.0
-0 0 1 0 NAN NAN
-jojj 8 j 0 NAN NAN
+0 0 1 0 NaN NaN
+jojj 8 j 0 NaN NaN
 -1.02 -3.06 -2.04 2 -2.0 -1.0
+

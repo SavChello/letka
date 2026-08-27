@@ -6,14 +6,11 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-//git
-//sscanf
-// remove chars
 
 struct ReadUnits {
-    char *a, *b, *c;
-    int real_count_roots;
-    double x1ref, x2ref;
+        char *a, *b, *c;
+        int real_count_roots;
+        double x1ref, x2ref;
 };
 
 const double EPS = 1e-6;
@@ -39,10 +36,10 @@ bool    is_str_is_num(char *str);
 double  new_read_number(char argue);
 void    neuroslop(char *c);
 
-#define MAXLINE 1000
+#define MAXLINE 100
 #define PRINT_UNIT(unit_a, unit_b, unit_c, real_count_roots, x1ref, x2ref, x_1, x_2) (printf("\n[a] = [%lg], [b] = [%lg], [c] = [%lg]\nExpected %d roots: [x1ref] = [%lg], [x2ref] = [%lg]\nGott roots: [x1] = [%lg], [x2] = [%lg]\n\n", unit_a, unit_b, unit_c, real_count_roots, x1ref, x2ref, x_1, x_2))
 #define PRINT_WRONG_UNIT(unit_a, unit_b, unit_c, real_count_roots, x1ref, x2ref, x_1, x_2) (printf("\n[a] = [%s], [b] = [%s], [c] = [%s]\nExpected %d roots: [x1ref] = [%lg], [x2ref] = [%lg]\nGott roots: [x1] = [%lg], [x2] = [%lg]\n\n", unit_a, unit_b, unit_c, real_count_roots, x1ref, x2ref, x_1, x_2))
-#define TIME_SLEEP 250
+#define TIME_SLEEP 0
 
 
 //-----------------------------------------------------------------------------
@@ -54,6 +51,7 @@ void    neuroslop(char *c);
 #define BACK_SAND   "\033[48;5;223m"
 #define GREEN       "\e[0;32m"
 #define MAGENTA     "\033[35m"
+#define BLUE        "\e[0;36m"
 
 
 //=============================================================================
@@ -68,7 +66,6 @@ int main() {
 
     unit_test_hards();
     unit_test_txt();
-
 
     printf(SAND "If you want to solve ");
     printf("quadratic equations, such as ax^2 + bx + c = 0, type 3 numbers:\n\n" DEFAULT);
@@ -89,7 +86,7 @@ int main() {
 }
 
 void neuroslop(char *c) {
-    printf("\e[0;36m\n  *");
+    printf(BLUE "\n  *");
     txSleep(TIME_SLEEP);
     printf("  *");
     txSleep(TIME_SLEEP);
@@ -106,8 +103,8 @@ void neuroslop(char *c) {
 void unit_test_hards(void) {
     neuroslop("units from Array");
 
-    struct ReadUnits test[] = {{.a = "0", .b = "1", .c = "0", .real_count_roots = 1, .x1ref = 0, .x2ref = NAN},
-                {.a = "1", .b = "2", .c = "1", .real_count_roots = 1, .x1ref = -1, .x2ref = NAN}};
+    struct ReadUnits test[] = {{.a = "0", .b = "1", .c = "0", .real_count_roots = 1, .x1ref = 0, .x2ref = NaN},
+                               {.a = "1", .b = "2", .c = "1", .real_count_roots = 1, .x1ref = -1, .x2ref = NaN}};
     int size = sizeof(test) / sizeof(test[0]);
 
     for (int i = 0; i < size; i++) {
@@ -119,39 +116,33 @@ void unit_test_hards(void) {
 
 
 void unit_test_txt(void) {
-    char a[MAXLINE] = {};
-    char b[MAXLINE] = {};
-    char c[MAXLINE] = {};
-    char x1[MAXLINE] = {};
-    char x2[MAXLINE] = {};
-    int n_roots = 0, i = 1;
-    double return_x1 = 0.0, return_x2 = 0.0;
+    char input_a[MAXLINE] = {};
+    char input_b[MAXLINE] = {};
+    char input_c[MAXLINE] = {};
+    char unit_str[MAXLINE] = {};
+    int i = 0;
+    int n_roots = 0;
+    double x1 = NAN, x2 = NAN;
 
     neuroslop("units from UNIT_test.txt");
     printf(SAND "Ok, here your UNIT tests! Lets check it:\n\n" DEFAULT);
 
     FILE *fpp = fopen("UNIT_test.txt", "r");
+    fgets(unit_str, sizeof(unit_str), fpp);
 
-    while (fscanf(fpp, "%s %s %s %d %s %s", a, b, c, &n_roots, x1, x2) == 6) {
-
-        if (!strcmp(x1, "NAN"))
-            return_x1 = NAN;
-        else
-            sscanf(x1, "%lf", &return_x1);
-
-        if (!strcmp(x2, "NAN"))
-            return_x2 = NAN;
-        else
-            sscanf(x2, "%lf", &return_x2);
+    while (sscanf(unit_str, "%s %s %s %d %lg %lg", input_a, input_b, input_c, &n_roots, &x1, &x2) > 0) {
 
         struct ReadUnits test = {
-            .a = a, .b = b, .c = c, .real_count_roots = n_roots,
-            .x1ref = return_x1, .x2ref = return_x2};
-
-        printf("Test {%d} was ", i);
+            .a = input_a, .b = input_b, .c = input_c,
+            .real_count_roots = n_roots,
+            .x1ref = x1, .x2ref = x2};
         i++;
+        printf("Test {%d} was ", i);
         run_one_test(test);
 
+        x1 = NAN;
+        x2 = NAN;
+        fgets(unit_str, sizeof(unit_str), fpp);
      }
 
      neuroslop("starting input");
@@ -172,18 +163,18 @@ void run_one_test(struct ReadUnits test) {
         count_roots = calc_roots(unit_a, unit_b, unit_c, &x_1, &x_2);
 
         switch (test.real_count_roots) {
-            case 2:
+            case TWO_ROOTS:
                 sort_x(&x_1, &x_2);
-                if (count_roots == test.real_count_roots && (x_1 - test.x1ref) < EPS && (x_2 - test.x2ref) < EPS)
+                if (count_roots == test.real_count_roots && is_zero(x_1 - test.x1ref) && is_zero(x_2 - test.x2ref))
                     check_right++;
                 break;
 
-            case 1:
-                if (count_roots == test.real_count_roots && (x_1 - test.x1ref) < EPS && isnan(x_2))
+            case ONE_ROOT:
+                if (count_roots == test.real_count_roots && is_zero(x_1 - test.x1ref) && isnan(x_2))
                     check_right++;
                 break;
 
-            case 0:
+            case NO_ROOTS:
                 if (count_roots == test.real_count_roots && isnan(x_1) && isnan(x_2))
                     check_right++;
                 break;
