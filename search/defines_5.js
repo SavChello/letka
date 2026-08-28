@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['red_0',['RED',['../kvadr2_8cpp.html#a8d23feea868a983c8c2b661e1e16972f',1,'kvadr2.cpp']]]
+  ['red_0',['RED',['../kvadr_8cpp.html#a8d23feea868a983c8c2b661e1e16972f',1,'kvadr.cpp']]]
 ];
