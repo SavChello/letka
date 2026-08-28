@@ -16,7 +16,7 @@ const double EPS = 1e-9;
  * Used when comparing double values or their differences to zero to account for floating-point inaccuracies.
  */
 enum rootCount{
-        INIT = -1,              ///< For initialization in main(), for check program's mistakes
+        INIT = -1,              ///< For initialization, for check program's mistakes
         NO_ROOTS = 0,           ///< No real roots, may D < 0
         ONE_ROOT = 1,           ///< One distinct root, D = 0
         TWO_ROOTS = 2,          ///< Two distinct root, D > 0
@@ -28,7 +28,7 @@ enum rootCount{
  */
 struct ReadNumsUnits {
         double a, b, c;         ///< Three correctly provided arguments of type double
-        int real_count_roots;   ///< The number of roots corresponding to the rootCount type
+        int real_count_roots;   ///< The number of roots
         double x1ref, x2ref;    ///< The expected correct and ordered roots: two roots, or one if x2ref is NAN
 };
 
@@ -143,7 +143,7 @@ int unit_test_arrays() {
  */
 int unit_solving_test() {
     char unit_str[MAXLINE] = {};
-    int i = 0, count_right_tests = 0;
+    int count_strs = 0, count_right_tests = 0;
     struct ReadNumsUnits test;
     test.x1ref = NAN;
     test.x2ref = NAN;
@@ -155,12 +155,12 @@ int unit_solving_test() {
     fgets(unit_str, sizeof(unit_str), file);
     while (sscanf(unit_str, "%lf %lf %lf %d %lf %lf",
                     &test.a, &test.b, &test.c, &test.real_count_roots, &test.x1ref, &test.x2ref) > 0) {
-        i++;
+        count_strs++;
         if (run_test_nums(test)) {
             count_right_tests++;
         }
         else
-            printf("Test {%d} was " RED "FAILED \n" DEFAULT, i);
+            printf("Test {%d} was " RED "FAILED \n" DEFAULT, count_strs);
 
         test.x1ref = NAN;
         test.x2ref = NAN;
@@ -168,7 +168,7 @@ int unit_solving_test() {
     }
 
     printf("Unit tests " GREEN "right" DEFAULT " in "
-           RED "{%d}" DEFAULT" from " RED"{%d} " DEFAULT "checks\n", count_right_tests, i);
+           RED "{%d}" DEFAULT" from " RED"{%d} " DEFAULT "checks\n", count_right_tests, count_strs);
     return 0;
 }
 
@@ -223,19 +223,19 @@ bool run_test_nums(struct ReadNumsUnits test) {
     count_roots = calc_roots(test.a, test.b, test.c, &counted_x1, &counted_x2);
 
     switch (test.real_count_roots) {
-        case 2:
+        case TWO_ROOTS:
             sort_x(&counted_x1, &counted_x2);
             if (count_roots == test.real_count_roots && is_zero(counted_x1 - test.x1ref) && is_zero(counted_x2 - test.x2ref))
                 check_right++;
             break;
 
-        case 1:
+        case ONE_ROOT:
             if (count_roots == test.real_count_roots && is_zero(counted_x1 - test.x1ref) && isnan(counted_x2))
                 check_right++;
             break;
 
-        case 3:
-        case 0:
+        case UNLIMITED_ROOTS:
+        case NO_ROOTS:
             if (count_roots == test.real_count_roots && isnan(counted_x1) && isnan(counted_x2))
                 check_right++;
             break;
@@ -263,7 +263,7 @@ int roots_int(double *a, double *b, double *c) {
 
     printf(SAND "If you want to solve ");
     printf("quadratic equations, such as ax^2 + bx + c = 0, type 3 numbers:\n\n" DEFAULT);
-
+//закинуть принт в функцию
     printf("Please, print {a}: ");
     internal_a = read_number('a');
     printf("Please, print {b}: ");

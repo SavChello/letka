@@ -9,6 +9,7 @@
 /f2.cpp
 /f2.cpp.save
 /f2.exe
+/exps.cpp
 /kvadr.cpp.save
 /kvadr.exe
 /kvadr2.cpp.save
@@ -23,4 +24,11 @@
 /unit.txt
 /Unit.txt.save
 /UNIT_test.txt.save
-/Untitled2.save
+*.exe
+*.o
+*.out
+*.log
+*.dmp
+*.save
+*.jsonc
+.vscode/
