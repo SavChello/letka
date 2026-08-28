@@ -25,7 +25,7 @@ void roots_out(enum rootCount counter, double x1, double x2);
 double solve_one_root(double a, double b);
 bool is_zero(double num);
 bool is_str_is_num(char *str);
-double new_read_number(void);
+double read_number(void);
 
 
 int main(void) {
@@ -53,11 +53,11 @@ void roots_int(double *a, double *b, double *c) {
     double internal_a = 0.0, internal_b = 0.0, internal_c = 0.0;
 
     printf("Enter a: ");
-    internal_a = new_read_number();
+    internal_a = read_number();
     printf("Enter b: ");
-    internal_b = new_read_number();
+    internal_b = read_number();
     printf("Enter c: ");
-    internal_c = new_read_number();
+    internal_c = read_number();
 
     *a = internal_a;
     *b = internal_b;
@@ -65,7 +65,7 @@ void roots_int(double *a, double *b, double *c) {
 
 }
 
-double new_read_number(void) {
+double read_number(void) {
     int check_num = 0;
     double num = 0.0;
     char str[MAXLINE] = {};

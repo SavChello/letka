@@ -6,23 +6,31 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-
+/**
+ * @brief EPS - The recommended error margin for calculations.
+ */
 const double EPS = 1e-9;
 
+/**
+ * @brief Statuses for the number of equation roots.
+ * Used when comparing double values or their differences to zero to account for floating-point inaccuracies.
+ */
 enum rootCount{
-        INIT = -1,
-        NO_ROOTS = 0,
-        ONE_ROOT = 1,
-        TWO_ROOTS = 2,
-        UNLIMITED_ROOTS = 3
+        INIT = -1,              ///< For initialization in main(), for check program's mistakes
+        NO_ROOTS = 0,           ///< No real roots, may D < 0
+        ONE_ROOT = 1,           ///< One distinct root, D = 0
+        TWO_ROOTS = 2,          ///< Two distinct root, D > 0
+        UNLIMITED_ROOTS = 3     ///< Any real number is solution
 };
 
+/**
+ * @brief Unit test case data
+ */
 struct ReadNumsUnits {
-        double a, b, c;
-        int real_count_roots;
-        double x1ref, x2ref;
+        double a, b, c;         ///< Three correctly provided arguments of type double
+        int real_count_roots;   ///< The number of roots corresponding to the rootCount type
+        double x1ref, x2ref;    ///< The expected correct and ordered roots: two roots, or one if x2ref is NAN
 };
-
 
 
 int     unit_test_arrays();
@@ -31,7 +39,7 @@ int     unit_check_str_isnum();
 bool    run_test_nums(struct ReadNumsUnits test);
 
 int     roots_int(double *a, double *b, double *c);
-double  new_read_number(char argue);
+double  read_number(char argue);
 bool    is_str_is_num(char *str);
 double  solve_one_root(double a, double b);
 enum    rootCount calc_roots(double a, double b, double c, double *x1, double *x2);
@@ -65,6 +73,16 @@ void    neuroslop(const char* c);
 //=============================================================================
 
 //int main(int argc, char* argv[]) {
+
+/**
+ * @brief The main function executes in the following sequence:
+ *
+ * 1. Initializes roots and coefficients with NAN to easily detect if the calculation fails.
+ * 2. Runs three unit tests: testing with data from an array, verifying root calculations, and validating string-to-number input parsing.
+ * 3. Enters a do-while loop that calls functions to: input the coefficients, calculate the roots and their count, and print the results.
+ * 4. Waits for the user to input "yes" or "no" to determine whether to continue or exit the program.
+ *
+ */
 int main() {
     double x1 = NAN, x2 = NAN;
     double a = NAN, b = NAN, c = NAN;
@@ -89,6 +107,11 @@ int main() {
 }
 
 
+/**
+ * @brief A unit testing function that reads from an array and performs complex checks.
+ * @details It allows you to easily copy-paste heavy, third-party tests to rigorously verify the root calculation logic.
+ *
+ */
 int unit_test_arrays() {
     printf(SAND "\nOk, here your UNIT tests! Lets check it:\n" DEFAULT);
     neuroslop("units from Array");
@@ -109,7 +132,15 @@ int unit_test_arrays() {
 }
 
 
-// /**
+/**
+ * @brief Root Validation Unit Test Function
+ * @details The execution flow is as follows:
+ * Performs line-by-line reading from a file that contains the predetermined, ordered roots (or NAN).
+ * Populates a test structure with the required parsed variables.
+ * Executes the structure validation function: run_test_nums(test).
+ * At the end, prints the total number of tests the program passed correctly.
+ *
+ */
 int unit_solving_test() {
     char unit_str[MAXLINE] = {};
     int i = 0, count_right_tests = 0;
@@ -119,9 +150,9 @@ int unit_solving_test() {
 
     neuroslop("units from UNIT_test.txt");
 
-    FILE *fpp = fopen("UNIT_test.txt", "r");
+    FILE *file = fopen("UNIT_test.txt", "r");
 
-    fgets(unit_str, sizeof(unit_str), fpp);
+    fgets(unit_str, sizeof(unit_str), file);
     while (sscanf(unit_str, "%lf %lf %lf %d %lf %lf",
                     &test.a, &test.b, &test.c, &test.real_count_roots, &test.x1ref, &test.x2ref) > 0) {
         i++;
@@ -133,7 +164,7 @@ int unit_solving_test() {
 
         test.x1ref = NAN;
         test.x2ref = NAN;
-        fgets(unit_str, sizeof(unit_str), fpp);
+        fgets(unit_str, sizeof(unit_str), file);
     }
 
     printf("Unit tests " GREEN "right" DEFAULT " in "
@@ -142,6 +173,13 @@ int unit_solving_test() {
 }
 
 
+/**
+ * @brief Second Unit Test: String Validation
+ * @details Reads three potential input strings line-by-line.
+ * Uses the is_str_is_num() function to check if each string evaluates to a valid number.
+ * Prints the final count of correctly parsed strings.
+ *
+ */
 int unit_check_str_isnum() {
     char input_a[MAXLINE] = {};
     char input_b[MAXLINE] = {};
@@ -152,14 +190,14 @@ int unit_check_str_isnum() {
 
     neuroslop("unit test on checking STR is NUMBERS");
 
-    FILE *fpp = fopen("UNIT_test_CHECK_NUM.txt", "r");
-    fgets(unit_str, sizeof(unit_str), fpp);
+    FILE *file2 = fopen("UNIT_test_CHECK_NUM.txt", "r");
+    fgets(unit_str, sizeof(unit_str), file2);
 
     while (sscanf(unit_str, "%s %s %s %d", input_a, input_b, input_c, &ans) > 0) {
         if (ans == (is_str_is_num(input_a) & is_str_is_num(input_b) & is_str_is_num(input_c)))
             right_tests++;
         all_tests++;
-        fgets(unit_str, sizeof(unit_str), fpp);
+        fgets(unit_str, sizeof(unit_str), file2);
      }
 
     printf("Program was read " GREEN "right " RED "{%d}" DEFAULT" from "
@@ -169,6 +207,14 @@ int unit_check_str_isnum() {
     return 0;
 }
 
+
+/**
+ * @brief Executes a single unit test for root calculation, following the same logic as the main program.
+ * @details It suppresses output for successful tests, printing only the failed ones.
+ * Returns an error status, or the correctly computed roots along with their count.
+ *
+ * @return bool
+ */
 bool run_test_nums(struct ReadNumsUnits test) {
     double counted_x1 = NAN, counted_x2 = NAN;
     int count_roots = 0;
@@ -204,6 +250,14 @@ bool run_test_nums(struct ReadNumsUnits test) {
 }
 
 
+/**
+ * @brief A function that retrieves the three coefficients of a quadratic equation.
+ * @details After processing, it passes their values back to the calling function via pointers.
+ *
+ * @param[out] a Coefficient {a}
+ * @param[out] b Coefficient {b}
+ * @param[out] c Coefficient {c}
+ */
 int roots_int(double *a, double *b, double *c) {
     double internal_a = 0.0, internal_b = 0.0, internal_c = 0.0;
 
@@ -211,11 +265,11 @@ int roots_int(double *a, double *b, double *c) {
     printf("quadratic equations, such as ax^2 + bx + c = 0, type 3 numbers:\n\n" DEFAULT);
 
     printf("Please, print {a}: ");
-    internal_a = new_read_number('a');
+    internal_a = read_number('a');
     printf("Please, print {b}: ");
-    internal_b = new_read_number('b');
+    internal_b = read_number('b');
     printf("Please, print {c}: ");
-    internal_c = new_read_number('c');
+    internal_c = read_number('c');
 
     *a = internal_a;
     *b = internal_b;
@@ -224,7 +278,15 @@ int roots_int(double *a, double *b, double *c) {
     return 0;
 }
 
-double new_read_number(char argue) {
+/**
+ * @brief Prompts the user for valid numeric input.
+ * @details If the first attempt contains anything other than a double, a continuous loop is triggered,
+ * prompting the user until a valid number is successfully parsed.
+ *
+ * @param[in] argue Input coefficient name
+ * @return double Required coefficient value
+ */
+double read_number(char argue) {
     bool check_num = 0;
     double num = 0.0;
     char str[MAXLINE] = {};
@@ -240,13 +302,18 @@ double new_read_number(char argue) {
         check_num = is_str_is_num(str);
 
     }
-//scanf
     sscanf(str, "%lg", &num);
 
     return num;
 }
 
-
+/**
+ * @brief String-to-double validation function
+ *
+ * @param[in] str An input string read from the console or a file for a unit test
+ * @return true The string is double
+ * @return false The string is not double
+ */
 bool is_str_is_num(char *str) {
 
     char *end_of_str = {};
@@ -257,11 +324,30 @@ bool is_str_is_num(char *str) {
     return true;
 }
 
-
+/**
+ * @brief A function that returns the solution to a linear equation of the form ax + b = 0
+ *
+ * @param[in] a Coefficient a
+ * @param[in] b Coefficient b
+ * @return double The single solution: root x
+ */
 double solve_one_root(double a, double b) {
     return -b / a;
 }
 
+/**
+ * @brief A root calculation function that returns a value of type enum rootCount
+ * @details After calculating the discriminant, a check is performed within a nested loop.
+ * If there are two roots, they are passed back to main via pointers x1 and x2.
+ * If there is only one root, it is passed via the x1 pointer alone.
+ *
+ * @param[in] a Coefficient a
+ * @param[in] b Coefficient b
+ * @param[in] c Coefficient c
+ * @param[out] x1 Root 1
+ * @param[out] x2 Root 2
+ * @return enum rootCount The number of roots
+ */
 enum rootCount calc_roots(double a, double b, double c, double *x1, double *x2) {
     double d = (b * b) - (a * c * 4);
 
@@ -306,6 +392,14 @@ enum rootCount calc_roots(double a, double b, double c, double *x1, double *x2) 
 }
 
 
+/**
+ * @brief Root output function
+ * @details A switch statement evaluates the enum rootCount to output the calculated roots and their total count.
+ *
+ * @param[in] counter Count roots
+ * @param[in] x1 Root 1
+ * @param[in] x2 Root 2
+ */
 int roots_out(enum rootCount counter, double x1, double x2) {
     neuroslop("solving");
 
@@ -336,7 +430,14 @@ int roots_out(enum rootCount counter, double x1, double x2) {
     return 0;
 }
 
-
+/**
+ * @brief A function that checks if the user wants to continue solving equations.
+ * @details If the input is anything other than 'yes' or 'no',
+ * the user is continuously prompted to enter strictly one of these two strings.
+ *
+ * @return true If 'yes' is entered, the loop in main restarts.
+ * @return false If 'no' is entered, the loop terminates.
+ */
 bool check_to_go() {
     char type_str[MAXLINE] = {};
     printf(SAND "If you want to go another solving, type " GREEN "\"yes\" " SAND "or " RED "\"no\": " DEFAULT);
@@ -354,7 +455,14 @@ bool check_to_go() {
     return true;
 }
 
-
+/**
+ * @brief A utility function that sorts two numbers.
+ * @details It is used in unit tests to prevent the test from failing if the program returns the roots unordered.
+ *
+ * @param[in, out] x Pointer to the first value.
+ * @param[in, out] y Pointer to the second value.
+ * @return int
+ */
 int sort_x(double *x, double *y) {
     double temp = 0.0;
     if (*x > *y) {
@@ -365,7 +473,14 @@ int sort_x(double *x, double *y) {
     return 0;
 }
 
-
+/**
+ * @brief A function that determines whether a number, or the difference between two numbers,
+ * is within the recommended precision tolerance (EPS).
+ *
+ * @param[in] num А number, or the difference between two numbers
+ * @return true If the absolute value of the number is less than EPS, it can be considered zero.
+ * @return false This value cannot be considered approximately zero.
+ */
 bool is_zero(double num) {
 
     num = fabs(num);
@@ -375,7 +490,11 @@ bool is_zero(double num) {
     return false;
 }
 
-
+/**
+ * @brief A function that elegantly displays text using a simulated AI response effect.
+ *
+ * @param[in] c The response string to be displayed.
+ */
 void neuroslop(const char *c) {
     printf(BLUE "\n  *");
     txSleep(TIME_SLEEP);
