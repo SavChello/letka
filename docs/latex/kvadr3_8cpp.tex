@@ -1,0 +1,278 @@
+\hypertarget{kvadr3_8cpp}{}\doxysection{kvadr3.\+cpp File Reference}
+\label{kvadr3_8cpp}\index{kvadr3.cpp@{kvadr3.cpp}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_read_units}{Read\+Units}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{kvadr3_8cpp_a8d23feea868a983c8c2b661e1e16972f}{RED}}~\char`\"{}\textbackslash{}033\mbox{[}38;5;203m\char`\"{}
+\item 
+\#define \mbox{\hyperlink{kvadr3_8cpp_a3e937c42922f7601edb17b747602c471}{MAXLINE}}~1000
+\item 
+\#define \mbox{\hyperlink{kvadr3_8cpp_abb7f3196f0c31b6c1412c737ade4d355}{PRINT\+\_\+\+UNIT}}(unit\+\_\+a,  unit\+\_\+b,  unit\+\_\+c,  real\+\_\+count\+\_\+roots,  x1ref,  x2ref,  x\+\_\+1,  x\+\_\+2)~(printf(\char`\"{}\textbackslash{}n\mbox{[}a\mbox{]} = \mbox{[}\%lg\mbox{]}, \mbox{[}b\mbox{]} = \mbox{[}\%lg\mbox{]}, \mbox{[}c\mbox{]} = \mbox{[}\%lg\mbox{]}\textbackslash{}n\+Expected \%d roots\+: \mbox{[}x1ref\mbox{]} = \mbox{[}\%lg\mbox{]}, \mbox{[}x2ref\mbox{]} = \mbox{[}\%lg\mbox{]}\textbackslash{}n\+Gott roots\+: \mbox{[}x1\mbox{]} = \mbox{[}\%lg\mbox{]}, \mbox{[}x2\mbox{]} = \mbox{[}\%lg\mbox{]}\textbackslash{}n\textbackslash{}n\char`\"{}, unit\+\_\+a, unit\+\_\+b, unit\+\_\+c, real\+\_\+count\+\_\+roots, x1ref, x2ref, x\+\_\+1, x\+\_\+2))
+\item 
+\#define \mbox{\hyperlink{kvadr3_8cpp_a04cc5b39509213959e1fc501b37d7a8d}{PRINT\+\_\+\+WRONG\+\_\+\+UNIT}}(unit\+\_\+a,  unit\+\_\+b,  unit\+\_\+c,  real\+\_\+count\+\_\+roots,  x1ref,  x2ref,  x\+\_\+1,  x\+\_\+2)~(printf(\char`\"{}\textbackslash{}n\mbox{[}a\mbox{]} = \mbox{[}\%s\mbox{]}, \mbox{[}b\mbox{]} = \mbox{[}\%s\mbox{]}, \mbox{[}c\mbox{]} = \mbox{[}\%s\mbox{]}\textbackslash{}n\+Expected \%d roots\+: \mbox{[}x1ref\mbox{]} = \mbox{[}\%lg\mbox{]}, \mbox{[}x2ref\mbox{]} = \mbox{[}\%lg\mbox{]}\textbackslash{}n\+Gott roots\+: \mbox{[}x1\mbox{]} = \mbox{[}\%lg\mbox{]}, \mbox{[}x2\mbox{]} = \mbox{[}\%lg\mbox{]}\textbackslash{}n\textbackslash{}n\char`\"{}, unit\+\_\+a, unit\+\_\+b, unit\+\_\+c, real\+\_\+count\+\_\+roots, x1ref, x2ref, x\+\_\+1, x\+\_\+2))
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794d}{root\+Count}} \{ \newline
+\mbox{\hyperlink{kvadr_8cpp_a3d8f829519f9536e0f16e76614c5794dab9a321da349ac1355b717745736ad90c}{NO\+\_\+\+ROOTS}} = 0
+, \mbox{\hyperlink{kvadr_8cpp_a3d8f829519f9536e0f16e76614c5794da6700c0f6efd23571cb22aefd2510b1cf}{ONE\+\_\+\+ROOT}} = 1
+, \mbox{\hyperlink{kvadr_8cpp_a3d8f829519f9536e0f16e76614c5794da876622d3c0b008da13a3685c64714e81}{TWO\+\_\+\+ROOTS}} = 2
+, \mbox{\hyperlink{kvadr_8cpp_a3d8f829519f9536e0f16e76614c5794dae53f6189ad3a65f5d4c6966de3feb5a0}{UNLIMITED\+\_\+\+ROOTS}} = 3
+, \newline
+\mbox{\hyperlink{kvadr2_8cpp_a3d8f829519f9536e0f16e76614c5794da0cb1b2c6a7db1f1084886c98909a3f36}{INIT}} = -\/1
+, \mbox{\hyperlink{kvadr2_8cpp_a3d8f829519f9536e0f16e76614c5794dab9a321da349ac1355b717745736ad90c}{NO\+\_\+\+ROOTS}} = 0
+, \mbox{\hyperlink{kvadr2_8cpp_a3d8f829519f9536e0f16e76614c5794da6700c0f6efd23571cb22aefd2510b1cf}{ONE\+\_\+\+ROOT}} = 1
+, \mbox{\hyperlink{kvadr2_8cpp_a3d8f829519f9536e0f16e76614c5794da876622d3c0b008da13a3685c64714e81}{TWO\+\_\+\+ROOTS}} = 2
+, \newline
+\mbox{\hyperlink{kvadr2_8cpp_a3d8f829519f9536e0f16e76614c5794dae53f6189ad3a65f5d4c6966de3feb5a0}{UNLIMITED\+\_\+\+ROOTS}} = 3
+, \mbox{\hyperlink{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794dab9a321da349ac1355b717745736ad90c}{NO\+\_\+\+ROOTS}} = 0
+, \mbox{\hyperlink{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794da6700c0f6efd23571cb22aefd2510b1cf}{ONE\+\_\+\+ROOT}} = 1
+, \mbox{\hyperlink{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794da876622d3c0b008da13a3685c64714e81}{TWO\+\_\+\+ROOTS}} = 2
+, \newline
+\mbox{\hyperlink{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794dae53f6189ad3a65f5d4c6966de3feb5a0}{UNLIMITED\+\_\+\+ROOTS}} = 3
+, \mbox{\hyperlink{kvadr___unit___check_8cpp_a3d8f829519f9536e0f16e76614c5794dab9a321da349ac1355b717745736ad90c}{NO\+\_\+\+ROOTS}} = 0
+, \mbox{\hyperlink{kvadr___unit___check_8cpp_a3d8f829519f9536e0f16e76614c5794da6700c0f6efd23571cb22aefd2510b1cf}{ONE\+\_\+\+ROOT}} = 1
+, \mbox{\hyperlink{kvadr___unit___check_8cpp_a3d8f829519f9536e0f16e76614c5794da876622d3c0b008da13a3685c64714e81}{TWO\+\_\+\+ROOTS}} = 2
+, \newline
+\mbox{\hyperlink{kvadr___unit___check_8cpp_a3d8f829519f9536e0f16e76614c5794dae53f6189ad3a65f5d4c6966de3feb5a0}{UNLIMITED\+\_\+\+ROOTS}} = 3
+, \mbox{\hyperlink{kvadr___unit___check_8cpp_a3d8f829519f9536e0f16e76614c5794da1aad495037fbba60bc955ab0359ed0d0}{WRONG\+\_\+\+WRITE}} = 4
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{kvadr3_8cpp_aeea9f10b6ca98f10363d9314571f77c9}{unit\+\_\+tests}} (void)
+\item 
+void \mbox{\hyperlink{kvadr3_8cpp_a978c1bbe1f2b227dfada4badb46f0fe2}{run\+\_\+one\+\_\+test}} (struct \mbox{\hyperlink{struct_read_units}{Read\+Units}} test)
+\item 
+void \mbox{\hyperlink{kvadr3_8cpp_a26e7a184b3879ae8486d43ac02acf1f3}{roots\+\_\+int}} (double $\ast$a, double $\ast$b, double $\ast$c)
+\item 
+void \mbox{\hyperlink{kvadr3_8cpp_ad76fffd7928b9aba84bf76833bd0acd9}{sort\+\_\+x}} (double $\ast$x, double $\ast$y)
+\item 
+enum \mbox{\hyperlink{kvadr_8cpp_a3d8f829519f9536e0f16e76614c5794d}{root\+Count}} \mbox{\hyperlink{kvadr3_8cpp_af65f5572319a374b97b957538b85f211}{calc\+\_\+roots}} (double a, double b, double c, double $\ast$x1, double $\ast$x2)
+\item 
+bool \mbox{\hyperlink{kvadr3_8cpp_a4aded0521bc9c3bff056fe2cafe5d2e2}{check\+\_\+to\+\_\+go}} (void)
+\item 
+void \mbox{\hyperlink{kvadr3_8cpp_add031c086fa47a755ece8db85fd3f35e}{roots\+\_\+out}} (enum \mbox{\hyperlink{kvadr_8cpp_a3d8f829519f9536e0f16e76614c5794d}{root\+Count}} counter, double x1, double x2)
+\item 
+double \mbox{\hyperlink{kvadr3_8cpp_a5f0715279b8bc7d68a0ae54e462c01a0}{solve\+\_\+one\+\_\+root}} (double a, double b)
+\item 
+bool \mbox{\hyperlink{kvadr3_8cpp_a818c7ac4f30b3ab52a36a116ed00d0ef}{is\+\_\+zero}} (double num)
+\item 
+bool \mbox{\hyperlink{kvadr3_8cpp_a9f7b748545ec154acb3f3bcd6f2209f3}{is\+\_\+str\+\_\+is\+\_\+num}} (char $\ast$str)
+\item 
+double \mbox{\hyperlink{kvadr3_8cpp_af221ab9e21048816c1386d263e86eae0}{new\+\_\+read\+\_\+number}} (char argue)
+\item 
+int \mbox{\hyperlink{kvadr3_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const double \mbox{\hyperlink{kvadr3_8cpp_afe01386a82fedc016455a43c20280a97}{EPS}} = 1e-\/6
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{kvadr3_8cpp_a3e937c42922f7601edb17b747602c471}\label{kvadr3_8cpp_a3e937c42922f7601edb17b747602c471}} 
+\index{kvadr3.cpp@{kvadr3.cpp}!MAXLINE@{MAXLINE}}
+\index{MAXLINE@{MAXLINE}!kvadr3.cpp@{kvadr3.cpp}}
+\doxysubsubsection{\texorpdfstring{MAXLINE}{MAXLINE}}
+{\footnotesize\ttfamily \#define MAXLINE~1000}
+
+\mbox{\Hypertarget{kvadr3_8cpp_abb7f3196f0c31b6c1412c737ade4d355}\label{kvadr3_8cpp_abb7f3196f0c31b6c1412c737ade4d355}} 
+\index{kvadr3.cpp@{kvadr3.cpp}!PRINT\_UNIT@{PRINT\_UNIT}}
+\index{PRINT\_UNIT@{PRINT\_UNIT}!kvadr3.cpp@{kvadr3.cpp}}
+\doxysubsubsection{\texorpdfstring{PRINT\_UNIT}{PRINT\_UNIT}}
+{\footnotesize\ttfamily \#define PRINT\+\_\+\+UNIT(\begin{DoxyParamCaption}\item[{}]{unit\+\_\+a,  }\item[{}]{unit\+\_\+b,  }\item[{}]{unit\+\_\+c,  }\item[{}]{real\+\_\+count\+\_\+roots,  }\item[{}]{x1ref,  }\item[{}]{x2ref,  }\item[{}]{x\+\_\+1,  }\item[{}]{x\+\_\+2 }\end{DoxyParamCaption})~(printf(\char`\"{}\textbackslash{}n\mbox{[}a\mbox{]} = \mbox{[}\%lg\mbox{]}, \mbox{[}b\mbox{]} = \mbox{[}\%lg\mbox{]}, \mbox{[}c\mbox{]} = \mbox{[}\%lg\mbox{]}\textbackslash{}n\+Expected \%d roots\+: \mbox{[}x1ref\mbox{]} = \mbox{[}\%lg\mbox{]}, \mbox{[}x2ref\mbox{]} = \mbox{[}\%lg\mbox{]}\textbackslash{}n\+Gott roots\+: \mbox{[}x1\mbox{]} = \mbox{[}\%lg\mbox{]}, \mbox{[}x2\mbox{]} = \mbox{[}\%lg\mbox{]}\textbackslash{}n\textbackslash{}n\char`\"{}, unit\+\_\+a, unit\+\_\+b, unit\+\_\+c, real\+\_\+count\+\_\+roots, x1ref, x2ref, x\+\_\+1, x\+\_\+2))}
+
+\mbox{\Hypertarget{kvadr3_8cpp_a04cc5b39509213959e1fc501b37d7a8d}\label{kvadr3_8cpp_a04cc5b39509213959e1fc501b37d7a8d}} 
+\index{kvadr3.cpp@{kvadr3.cpp}!PRINT\_WRONG\_UNIT@{PRINT\_WRONG\_UNIT}}
+\index{PRINT\_WRONG\_UNIT@{PRINT\_WRONG\_UNIT}!kvadr3.cpp@{kvadr3.cpp}}
+\doxysubsubsection{\texorpdfstring{PRINT\_WRONG\_UNIT}{PRINT\_WRONG\_UNIT}}
+{\footnotesize\ttfamily \#define PRINT\+\_\+\+WRONG\+\_\+\+UNIT(\begin{DoxyParamCaption}\item[{}]{unit\+\_\+a,  }\item[{}]{unit\+\_\+b,  }\item[{}]{unit\+\_\+c,  }\item[{}]{real\+\_\+count\+\_\+roots,  }\item[{}]{x1ref,  }\item[{}]{x2ref,  }\item[{}]{x\+\_\+1,  }\item[{}]{x\+\_\+2 }\end{DoxyParamCaption})~(printf(\char`\"{}\textbackslash{}n\mbox{[}a\mbox{]} = \mbox{[}\%s\mbox{]}, \mbox{[}b\mbox{]} = \mbox{[}\%s\mbox{]}, \mbox{[}c\mbox{]} = \mbox{[}\%s\mbox{]}\textbackslash{}n\+Expected \%d roots\+: \mbox{[}x1ref\mbox{]} = \mbox{[}\%lg\mbox{]}, \mbox{[}x2ref\mbox{]} = \mbox{[}\%lg\mbox{]}\textbackslash{}n\+Gott roots\+: \mbox{[}x1\mbox{]} = \mbox{[}\%lg\mbox{]}, \mbox{[}x2\mbox{]} = \mbox{[}\%lg\mbox{]}\textbackslash{}n\textbackslash{}n\char`\"{}, unit\+\_\+a, unit\+\_\+b, unit\+\_\+c, real\+\_\+count\+\_\+roots, x1ref, x2ref, x\+\_\+1, x\+\_\+2))}
+
+\mbox{\Hypertarget{kvadr3_8cpp_a8d23feea868a983c8c2b661e1e16972f}\label{kvadr3_8cpp_a8d23feea868a983c8c2b661e1e16972f}} 
+\index{kvadr3.cpp@{kvadr3.cpp}!RED@{RED}}
+\index{RED@{RED}!kvadr3.cpp@{kvadr3.cpp}}
+\doxysubsubsection{\texorpdfstring{RED}{RED}}
+{\footnotesize\ttfamily \#define RED~\char`\"{}\textbackslash{}033\mbox{[}38;5;203m\char`\"{}}
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794d}\label{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794d}} 
+\index{kvadr3.cpp@{kvadr3.cpp}!rootCount@{rootCount}}
+\index{rootCount@{rootCount}!kvadr3.cpp@{kvadr3.cpp}}
+\doxysubsubsection{\texorpdfstring{rootCount}{rootCount}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{kvadr_8cpp_a3d8f829519f9536e0f16e76614c5794d}{root\+Count}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NO\_ROOTS@{NO\_ROOTS}!kvadr3.cpp@{kvadr3.cpp}}\index{kvadr3.cpp@{kvadr3.cpp}!NO\_ROOTS@{NO\_ROOTS}}}\mbox{\Hypertarget{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794dab9a321da349ac1355b717745736ad90c}\label{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794dab9a321da349ac1355b717745736ad90c}} 
+NO\+\_\+\+ROOTS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ONE\_ROOT@{ONE\_ROOT}!kvadr3.cpp@{kvadr3.cpp}}\index{kvadr3.cpp@{kvadr3.cpp}!ONE\_ROOT@{ONE\_ROOT}}}\mbox{\Hypertarget{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794da6700c0f6efd23571cb22aefd2510b1cf}\label{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794da6700c0f6efd23571cb22aefd2510b1cf}} 
+ONE\+\_\+\+ROOT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TWO\_ROOTS@{TWO\_ROOTS}!kvadr3.cpp@{kvadr3.cpp}}\index{kvadr3.cpp@{kvadr3.cpp}!TWO\_ROOTS@{TWO\_ROOTS}}}\mbox{\Hypertarget{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794da876622d3c0b008da13a3685c64714e81}\label{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794da876622d3c0b008da13a3685c64714e81}} 
+TWO\+\_\+\+ROOTS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UNLIMITED\_ROOTS@{UNLIMITED\_ROOTS}!kvadr3.cpp@{kvadr3.cpp}}\index{kvadr3.cpp@{kvadr3.cpp}!UNLIMITED\_ROOTS@{UNLIMITED\_ROOTS}}}\mbox{\Hypertarget{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794dae53f6189ad3a65f5d4c6966de3feb5a0}\label{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794dae53f6189ad3a65f5d4c6966de3feb5a0}} 
+UNLIMITED\+\_\+\+ROOTS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{INIT@{INIT}!kvadr3.cpp@{kvadr3.cpp}}\index{kvadr3.cpp@{kvadr3.cpp}!INIT@{INIT}}}\mbox{\Hypertarget{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794da0cb1b2c6a7db1f1084886c98909a3f36}\label{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794da0cb1b2c6a7db1f1084886c98909a3f36}} 
+INIT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NO\_ROOTS@{NO\_ROOTS}!kvadr3.cpp@{kvadr3.cpp}}\index{kvadr3.cpp@{kvadr3.cpp}!NO\_ROOTS@{NO\_ROOTS}}}\mbox{\Hypertarget{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794dab9a321da349ac1355b717745736ad90c}\label{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794dab9a321da349ac1355b717745736ad90c}} 
+NO\+\_\+\+ROOTS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ONE\_ROOT@{ONE\_ROOT}!kvadr3.cpp@{kvadr3.cpp}}\index{kvadr3.cpp@{kvadr3.cpp}!ONE\_ROOT@{ONE\_ROOT}}}\mbox{\Hypertarget{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794da6700c0f6efd23571cb22aefd2510b1cf}\label{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794da6700c0f6efd23571cb22aefd2510b1cf}} 
+ONE\+\_\+\+ROOT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TWO\_ROOTS@{TWO\_ROOTS}!kvadr3.cpp@{kvadr3.cpp}}\index{kvadr3.cpp@{kvadr3.cpp}!TWO\_ROOTS@{TWO\_ROOTS}}}\mbox{\Hypertarget{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794da876622d3c0b008da13a3685c64714e81}\label{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794da876622d3c0b008da13a3685c64714e81}} 
+TWO\+\_\+\+ROOTS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UNLIMITED\_ROOTS@{UNLIMITED\_ROOTS}!kvadr3.cpp@{kvadr3.cpp}}\index{kvadr3.cpp@{kvadr3.cpp}!UNLIMITED\_ROOTS@{UNLIMITED\_ROOTS}}}\mbox{\Hypertarget{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794dae53f6189ad3a65f5d4c6966de3feb5a0}\label{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794dae53f6189ad3a65f5d4c6966de3feb5a0}} 
+UNLIMITED\+\_\+\+ROOTS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NO\_ROOTS@{NO\_ROOTS}!kvadr3.cpp@{kvadr3.cpp}}\index{kvadr3.cpp@{kvadr3.cpp}!NO\_ROOTS@{NO\_ROOTS}}}\mbox{\Hypertarget{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794dab9a321da349ac1355b717745736ad90c}\label{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794dab9a321da349ac1355b717745736ad90c}} 
+NO\+\_\+\+ROOTS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ONE\_ROOT@{ONE\_ROOT}!kvadr3.cpp@{kvadr3.cpp}}\index{kvadr3.cpp@{kvadr3.cpp}!ONE\_ROOT@{ONE\_ROOT}}}\mbox{\Hypertarget{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794da6700c0f6efd23571cb22aefd2510b1cf}\label{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794da6700c0f6efd23571cb22aefd2510b1cf}} 
+ONE\+\_\+\+ROOT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TWO\_ROOTS@{TWO\_ROOTS}!kvadr3.cpp@{kvadr3.cpp}}\index{kvadr3.cpp@{kvadr3.cpp}!TWO\_ROOTS@{TWO\_ROOTS}}}\mbox{\Hypertarget{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794da876622d3c0b008da13a3685c64714e81}\label{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794da876622d3c0b008da13a3685c64714e81}} 
+TWO\+\_\+\+ROOTS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UNLIMITED\_ROOTS@{UNLIMITED\_ROOTS}!kvadr3.cpp@{kvadr3.cpp}}\index{kvadr3.cpp@{kvadr3.cpp}!UNLIMITED\_ROOTS@{UNLIMITED\_ROOTS}}}\mbox{\Hypertarget{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794dae53f6189ad3a65f5d4c6966de3feb5a0}\label{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794dae53f6189ad3a65f5d4c6966de3feb5a0}} 
+UNLIMITED\+\_\+\+ROOTS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NO\_ROOTS@{NO\_ROOTS}!kvadr3.cpp@{kvadr3.cpp}}\index{kvadr3.cpp@{kvadr3.cpp}!NO\_ROOTS@{NO\_ROOTS}}}\mbox{\Hypertarget{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794dab9a321da349ac1355b717745736ad90c}\label{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794dab9a321da349ac1355b717745736ad90c}} 
+NO\+\_\+\+ROOTS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ONE\_ROOT@{ONE\_ROOT}!kvadr3.cpp@{kvadr3.cpp}}\index{kvadr3.cpp@{kvadr3.cpp}!ONE\_ROOT@{ONE\_ROOT}}}\mbox{\Hypertarget{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794da6700c0f6efd23571cb22aefd2510b1cf}\label{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794da6700c0f6efd23571cb22aefd2510b1cf}} 
+ONE\+\_\+\+ROOT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TWO\_ROOTS@{TWO\_ROOTS}!kvadr3.cpp@{kvadr3.cpp}}\index{kvadr3.cpp@{kvadr3.cpp}!TWO\_ROOTS@{TWO\_ROOTS}}}\mbox{\Hypertarget{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794da876622d3c0b008da13a3685c64714e81}\label{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794da876622d3c0b008da13a3685c64714e81}} 
+TWO\+\_\+\+ROOTS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UNLIMITED\_ROOTS@{UNLIMITED\_ROOTS}!kvadr3.cpp@{kvadr3.cpp}}\index{kvadr3.cpp@{kvadr3.cpp}!UNLIMITED\_ROOTS@{UNLIMITED\_ROOTS}}}\mbox{\Hypertarget{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794dae53f6189ad3a65f5d4c6966de3feb5a0}\label{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794dae53f6189ad3a65f5d4c6966de3feb5a0}} 
+UNLIMITED\+\_\+\+ROOTS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WRONG\_WRITE@{WRONG\_WRITE}!kvadr3.cpp@{kvadr3.cpp}}\index{kvadr3.cpp@{kvadr3.cpp}!WRONG\_WRITE@{WRONG\_WRITE}}}\mbox{\Hypertarget{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794da1aad495037fbba60bc955ab0359ed0d0}\label{kvadr3_8cpp_a3d8f829519f9536e0f16e76614c5794da1aad495037fbba60bc955ab0359ed0d0}} 
+WRONG\+\_\+\+WRITE&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{kvadr3_8cpp_af65f5572319a374b97b957538b85f211}\label{kvadr3_8cpp_af65f5572319a374b97b957538b85f211}} 
+\index{kvadr3.cpp@{kvadr3.cpp}!calc\_roots@{calc\_roots}}
+\index{calc\_roots@{calc\_roots}!kvadr3.cpp@{kvadr3.cpp}}
+\doxysubsubsection{\texorpdfstring{calc\_roots()}{calc\_roots()}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{kvadr_8cpp_a3d8f829519f9536e0f16e76614c5794d}{root\+Count}} calc\+\_\+roots (\begin{DoxyParamCaption}\item[{double}]{a,  }\item[{double}]{b,  }\item[{double}]{c,  }\item[{double $\ast$}]{x1,  }\item[{double $\ast$}]{x2 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{kvadr3_8cpp_a4aded0521bc9c3bff056fe2cafe5d2e2}\label{kvadr3_8cpp_a4aded0521bc9c3bff056fe2cafe5d2e2}} 
+\index{kvadr3.cpp@{kvadr3.cpp}!check\_to\_go@{check\_to\_go}}
+\index{check\_to\_go@{check\_to\_go}!kvadr3.cpp@{kvadr3.cpp}}
+\doxysubsubsection{\texorpdfstring{check\_to\_go()}{check\_to\_go()}}
+{\footnotesize\ttfamily bool check\+\_\+to\+\_\+go (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{kvadr3_8cpp_a9f7b748545ec154acb3f3bcd6f2209f3}\label{kvadr3_8cpp_a9f7b748545ec154acb3f3bcd6f2209f3}} 
+\index{kvadr3.cpp@{kvadr3.cpp}!is\_str\_is\_num@{is\_str\_is\_num}}
+\index{is\_str\_is\_num@{is\_str\_is\_num}!kvadr3.cpp@{kvadr3.cpp}}
+\doxysubsubsection{\texorpdfstring{is\_str\_is\_num()}{is\_str\_is\_num()}}
+{\footnotesize\ttfamily bool is\+\_\+str\+\_\+is\+\_\+num (\begin{DoxyParamCaption}\item[{char $\ast$}]{str }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{kvadr3_8cpp_a818c7ac4f30b3ab52a36a116ed00d0ef}\label{kvadr3_8cpp_a818c7ac4f30b3ab52a36a116ed00d0ef}} 
+\index{kvadr3.cpp@{kvadr3.cpp}!is\_zero@{is\_zero}}
+\index{is\_zero@{is\_zero}!kvadr3.cpp@{kvadr3.cpp}}
+\doxysubsubsection{\texorpdfstring{is\_zero()}{is\_zero()}}
+{\footnotesize\ttfamily bool is\+\_\+zero (\begin{DoxyParamCaption}\item[{double}]{num }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{kvadr3_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{kvadr3_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{kvadr3.cpp@{kvadr3.cpp}!main@{main}}
+\index{main@{main}!kvadr3.cpp@{kvadr3.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{kvadr3_8cpp_af221ab9e21048816c1386d263e86eae0}\label{kvadr3_8cpp_af221ab9e21048816c1386d263e86eae0}} 
+\index{kvadr3.cpp@{kvadr3.cpp}!new\_read\_number@{new\_read\_number}}
+\index{new\_read\_number@{new\_read\_number}!kvadr3.cpp@{kvadr3.cpp}}
+\doxysubsubsection{\texorpdfstring{new\_read\_number()}{new\_read\_number()}}
+{\footnotesize\ttfamily double new\+\_\+read\+\_\+number (\begin{DoxyParamCaption}\item[{char}]{argue }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{kvadr3_8cpp_a26e7a184b3879ae8486d43ac02acf1f3}\label{kvadr3_8cpp_a26e7a184b3879ae8486d43ac02acf1f3}} 
+\index{kvadr3.cpp@{kvadr3.cpp}!roots\_int@{roots\_int}}
+\index{roots\_int@{roots\_int}!kvadr3.cpp@{kvadr3.cpp}}
+\doxysubsubsection{\texorpdfstring{roots\_int()}{roots\_int()}}
+{\footnotesize\ttfamily void roots\+\_\+int (\begin{DoxyParamCaption}\item[{double $\ast$}]{a,  }\item[{double $\ast$}]{b,  }\item[{double $\ast$}]{c }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{kvadr3_8cpp_add031c086fa47a755ece8db85fd3f35e}\label{kvadr3_8cpp_add031c086fa47a755ece8db85fd3f35e}} 
+\index{kvadr3.cpp@{kvadr3.cpp}!roots\_out@{roots\_out}}
+\index{roots\_out@{roots\_out}!kvadr3.cpp@{kvadr3.cpp}}
+\doxysubsubsection{\texorpdfstring{roots\_out()}{roots\_out()}}
+{\footnotesize\ttfamily void roots\+\_\+out (\begin{DoxyParamCaption}\item[{enum \mbox{\hyperlink{kvadr_8cpp_a3d8f829519f9536e0f16e76614c5794d}{root\+Count}}}]{counter,  }\item[{double}]{x1,  }\item[{double}]{x2 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{kvadr3_8cpp_a978c1bbe1f2b227dfada4badb46f0fe2}\label{kvadr3_8cpp_a978c1bbe1f2b227dfada4badb46f0fe2}} 
+\index{kvadr3.cpp@{kvadr3.cpp}!run\_one\_test@{run\_one\_test}}
+\index{run\_one\_test@{run\_one\_test}!kvadr3.cpp@{kvadr3.cpp}}
+\doxysubsubsection{\texorpdfstring{run\_one\_test()}{run\_one\_test()}}
+{\footnotesize\ttfamily void run\+\_\+one\+\_\+test (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{struct_read_units}{Read\+Units}}}]{test }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{kvadr3_8cpp_a5f0715279b8bc7d68a0ae54e462c01a0}\label{kvadr3_8cpp_a5f0715279b8bc7d68a0ae54e462c01a0}} 
+\index{kvadr3.cpp@{kvadr3.cpp}!solve\_one\_root@{solve\_one\_root}}
+\index{solve\_one\_root@{solve\_one\_root}!kvadr3.cpp@{kvadr3.cpp}}
+\doxysubsubsection{\texorpdfstring{solve\_one\_root()}{solve\_one\_root()}}
+{\footnotesize\ttfamily double solve\+\_\+one\+\_\+root (\begin{DoxyParamCaption}\item[{double}]{a,  }\item[{double}]{b }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{kvadr3_8cpp_ad76fffd7928b9aba84bf76833bd0acd9}\label{kvadr3_8cpp_ad76fffd7928b9aba84bf76833bd0acd9}} 
+\index{kvadr3.cpp@{kvadr3.cpp}!sort\_x@{sort\_x}}
+\index{sort\_x@{sort\_x}!kvadr3.cpp@{kvadr3.cpp}}
+\doxysubsubsection{\texorpdfstring{sort\_x()}{sort\_x()}}
+{\footnotesize\ttfamily void sort\+\_\+x (\begin{DoxyParamCaption}\item[{double $\ast$}]{x,  }\item[{double $\ast$}]{y }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{kvadr3_8cpp_aeea9f10b6ca98f10363d9314571f77c9}\label{kvadr3_8cpp_aeea9f10b6ca98f10363d9314571f77c9}} 
+\index{kvadr3.cpp@{kvadr3.cpp}!unit\_tests@{unit\_tests}}
+\index{unit\_tests@{unit\_tests}!kvadr3.cpp@{kvadr3.cpp}}
+\doxysubsubsection{\texorpdfstring{unit\_tests()}{unit\_tests()}}
+{\footnotesize\ttfamily void unit\+\_\+tests (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{kvadr3_8cpp_afe01386a82fedc016455a43c20280a97}\label{kvadr3_8cpp_afe01386a82fedc016455a43c20280a97}} 
+\index{kvadr3.cpp@{kvadr3.cpp}!EPS@{EPS}}
+\index{EPS@{EPS}!kvadr3.cpp@{kvadr3.cpp}}
+\doxysubsubsection{\texorpdfstring{EPS}{EPS}}
+{\footnotesize\ttfamily const double EPS = 1e-\/6}
+
