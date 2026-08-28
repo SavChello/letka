@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['readnumsunits_0',['ReadNumsUnits',['../struct_read_nums_units.html',1,'']]],
-  ['readunits_1',['ReadUnits',['../struct_read_units.html',1,'']]]
+  ['readnumsunits_0',['ReadNumsUnits',['../struct_read_nums_units.html',1,'']]]
 ];
