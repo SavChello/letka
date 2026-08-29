@@ -7,30 +7,38 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include <time.h>
 
 /**
  * @brief Statuses for the number of equation roots.
  * Used when comparing double values or their differences to zero to account for floating-point inaccuracies.
  */
 enum rootCount{
-        INIT = -1,              ///< For initialization, for check program's mistakes
-        NO_ROOTS = 0,           ///< No real roots, may D < 0
-        ONE_ROOT = 1,           ///< One distinct root, D = 0
-        TWO_ROOTS = 2,          ///< Two distinct root, D > 0
-        UNLIMITED_ROOTS = 3     ///< Any real number is solution
+        INIT = -1,                ///< For initialization, for check program's mistakes
+        NO_ROOTS = 0,             ///< No real roots, may D < 0
+        ONE_ROOT = 1,             ///< One distinct root, D = 0
+        TWO_ROOTS = 2,            ///< Two distinct root, D > 0
+        UNLIMITED_ROOTS = 3       ///< Any real number is solution
 };
 /**
  * @brief Unit test case data
  */
 struct ReadNumsUnits {
-        double a, b, c;         ///< Three correctly provided arguments of type double
-        int real_count_roots;   ///< The number of roots
-        double x1ref, x2ref;    ///< The expected correct and ordered roots: two roots, or one if x2ref is NAN
+        double a, b, c;           ///< Three correctly provided arguments of type double
+        int real_count_roots;     ///< The number of roots
+        double x1ref, x2ref;      ///< The expected correct and ordered roots: two roots, or one if x2ref is NAN
 };
 
+const double EPS = 1e-5;          ///< EPS - The recommended error margin for calculations
+const double RAND_EPS = 1e-3;     /// Margin for random coefs is 0.1%
+const double MY_RAND_MAX = 1e10;
+const double MY_RAND_MIN = -1e10;
+
 #define MAXLINE 100
-#define PRINT_WRONG_UNIT(unit_a, unit_b, unit_c, real_count_roots, x1ref, x2ref, x_1, x_2) (printf("\n[a] = [%lg], [b] = [%lg], [c] = [%lg]\nExpected %d roots: [x1ref] = [%lg], [x2ref] = [%lg]\nGott roots: [x1] = [%lg], [x2] = [%lg]\n\n", unit_a, unit_b, unit_c, real_count_roots, x1ref, x2ref, x_1, x_2))
-#define TIME_SLEEP 0
+#define PRINT_WRONG_UNIT(unit_a, unit_b, unit_c, real_count_roots, x1ref, x2ref, x_1, x_2) (printf("[a] = [%lg], [b] = [%lg], [c] = [%lg]\nExpected %d roots: [x1ref] = [%lg], [x2ref] = [%lg]\nGott roots: [x1] = [%lg], [x2] = [%lg]\n\n", unit_a, unit_b, unit_c, real_count_roots, x1ref, x2ref, x_1, x_2))
+#define TIME_SLEEP 250
+#define COUNT_RANDOM_TESTS 500
+
 
 
 #define DEFAULT     "\x1b[0m"
@@ -41,13 +49,13 @@ struct ReadNumsUnits {
 #define MAGENTA     "\033[35m"
 #define BLUE        "\e[0;36m"
 
-/**
- * @brief EPS - The recommended error margin for calculations.
- */
-const double EPS = 1e-9;
+
+
 
 //-----------------------------------------------------------------------------
 
+int     unit_random();
+double  randoms();
 int     unit_test_arrays();
 int     unit_solving_test();
 int     unit_check_str_isnum();
@@ -64,6 +72,7 @@ bool    check_to_go();
 
 int     sort_x(double *x, double *y);
 bool    is_zero(double num);
+bool    is_zero_rand(double num);
 void    neuroslop(const char* c);
 
 //-----------------------------------------------------------------------------

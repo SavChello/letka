@@ -18,8 +18,9 @@ int main() {
     double a = NAN, b = NAN, c = NAN;
     rootCount count_roots = INIT;
 
-    printf(SAND "NeuroSlop understanding you. You want to solve quadratic equations. Let's goo..\n" DEFAULT);
+    printf(SAND "NeuroSlop understanding you. You want to solve quadratic equations. Let's goo..\n\n" DEFAULT);
 
+    unit_random();
     unit_test_arrays();
     unit_solving_test();
     unit_check_str_isnum();
@@ -222,15 +223,15 @@ int roots_out(enum rootCount counter, double x1, double x2) {
 bool check_to_go() {
     char type_str[MAXLINE] = {};
     printf(SAND "If you want to go another solving, type " GREEN "\"yes\" " SAND "or " RED "\"no\": " DEFAULT);
+    fgets(type_str, sizeof(type_str), stdin);
 
-    while (!strcmp(type_str, "yes") || !strcmp(type_str, "no")) {
-        fgets(type_str, sizeof(type_str), stdin);
+    while (strncmp(type_str, "yes", 3) != 0 && strncmp(type_str, "no", 2) != 0) {
         printf(SAND "Write only " GREEN "\"yes\" " SAND "or " RED "\"no\" " DEFAULT);
-
+        fgets(type_str, sizeof(type_str), stdin);
     }
 
-    neuroslop("start");
-    if (strcmp(type_str, "yes")) {
+    if (strncmp(type_str, "yes", 3) == 0) {
+        neuroslop("start");
         return false;
     }
     return true;

@@ -2,13 +2,79 @@
 
 
 
+int unit_random() {
+    int count_right_solves = 0, count_tests_withroots = 0;
+    double x1 = NAN, x2 = NAN, rand_a = NAN, rand_b = NAN, rand_c = NAN;
+    double solve1 = NAN, solve2 = NAN;
+    enum rootCount count_roots = INIT;
+
+    printf(SAND "\nOk, here your UNIT tests! Lets check it:\n" DEFAULT);
+    neuroslop("making random unit tests");
+    srand(time(NULL));
+
+    for (int i = 1; i <= COUNT_RANDOM_TESTS; i++) {
+        x1 = NAN, x2 = NAN;
+        solve1 = NAN, solve2 = NAN;
+
+        rand_a = randoms(); //[-1e10, 1e10]
+        rand_b = randoms();
+        rand_c = randoms();
+        //printf("%0.10lg %0.10lg %0.10lg\n", rand_a, rand_b, rand_c);
+        count_roots = calc_roots(rand_a, rand_b, rand_c, &x1, &x2);
+
+        switch (count_roots) {
+            case TWO_ROOTS:
+                count_tests_withroots++;
+                solve1 = rand_a * x1 * x1 + rand_b * x1 + rand_c;
+                solve2 = rand_a * x2 * x2 + rand_b * x2 + rand_c;
+
+                if (is_zero_rand(solve1) && is_zero_rand(solve2))
+                    count_right_solves++;
+                else
+                    printf("test <%d> wrong: first solving give [%lg], second solving give [%lg]\n", i, solve1, solve2);
+                break;
+
+            case ONE_ROOT:
+                count_tests_withroots++;
+                solve1 = rand_a * x1 * x1 + rand_b * x1 + rand_c;
+
+                if (is_zero_rand(solve1))
+                    count_right_solves++;
+                else
+                    printf("test <%d/%d> wrong: solving give [%lg]\n", i, COUNT_RANDOM_TESTS, solve1);
+                break;
+
+            case UNLIMITED_ROOTS:
+            case NO_ROOTS:
+            case INIT:
+                break;
+
+            default:
+                break;
+        }
+
+    }
+
+    printf("Random units " GREEN "right " DEFAULT "in "
+            RED "{%d} " DEFAULT "from " RED "{%d} " DEFAULT
+            "solves, where exists roots\n", count_right_solves, count_tests_withroots);
+    return 0;
+}
+
+
+double randoms() {
+    double k = (double)rand() / RAND_MAX;
+    return k * k * k * (MY_RAND_MAX - MY_RAND_MIN) + MY_RAND_MIN;
+}
+
+
 /**
  * @brief A unit testing function that reads from an array and performs complex checks.
  * @details It allows you to easily copy-paste heavy, third-party tests to rigorously verify the root calculation logic.
  *
  */
 int unit_test_arrays() {
-    printf(SAND "\nOk, here your UNIT tests! Lets check it:\n" DEFAULT);
+
     neuroslop("units from Array");
 
     int count = 0;
@@ -96,7 +162,7 @@ int unit_check_str_isnum() {
      }
 
     printf("Program was read " GREEN "right " RED "{%d}" DEFAULT" from "
-            RED "{%d} " DEFAULT "unit test inputs\n", right_tests, all_tests);
+            RED "{%d} " DEFAULT "unit test inputs\n\n", right_tests, all_tests);
     neuroslop("starting input");
 
     return 0;
@@ -142,4 +208,14 @@ bool run_test_nums(struct ReadNumsUnits test) {
         PRINT_WRONG_UNIT(test.a, test.b, test.c, test.real_count_roots, test.x1ref, test.x2ref, counted_x1, counted_x2);
 
     return check_right;
+}
+
+
+bool is_zero_rand(double num) {
+
+    num = fabs(num);
+    if (num <= RAND_EPS) {
+        return true;
+    }
+    return false;
 }
