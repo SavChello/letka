@@ -1,74 +1,4 @@
-#include <TXLib.h>
-#include <stdio.h>
-#include <math.h>
-#include <stdbool.h>
-#include <string.h>
-#include <ctype.h>
-#include <stdlib.h>
-
-/**
- * @brief EPS - The recommended error margin for calculations.
- */
-const double EPS = 1e-9;
-
-/**
- * @brief Statuses for the number of equation roots.
- * Used when comparing double values or their differences to zero to account for floating-point inaccuracies.
- */
-enum rootCount{
-        INIT = -1,              ///< For initialization, for check program's mistakes
-        NO_ROOTS = 0,           ///< No real roots, may D < 0
-        ONE_ROOT = 1,           ///< One distinct root, D = 0
-        TWO_ROOTS = 2,          ///< Two distinct root, D > 0
-        UNLIMITED_ROOTS = 3     ///< Any real number is solution
-};
-
-/**
- * @brief Unit test case data
- */
-struct ReadNumsUnits {
-        double a, b, c;         ///< Three correctly provided arguments of type double
-        int real_count_roots;   ///< The number of roots
-        double x1ref, x2ref;    ///< The expected correct and ordered roots: two roots, or one if x2ref is NAN
-};
-
-
-int     unit_test_arrays();
-int     unit_solving_test();
-int     unit_check_str_isnum();
-bool    run_test_nums(struct ReadNumsUnits test);
-
-int     roots_int(double *a, double *b, double *c);
-double  read_number(char argue);
-bool    is_str_is_num(char *str);
-double  solve_one_root(double a, double b);
-enum    rootCount calc_roots(double a, double b, double c, double *x1, double *x2);
-
-int     roots_out(enum rootCount counter, double x1, double x2);
-bool    check_to_go();
-
-int     sort_x(double *x, double *y);
-bool    is_zero(double num);
-void    neuroslop(const char* c);
-
-
-
-#define MAXLINE 100
-#define PRINT_WRONG_UNIT(unit_a, unit_b, unit_c, real_count_roots, x1ref, x2ref, x_1, x_2) (printf("\n[a] = [%lg], [b] = [%lg], [c] = [%lg]\nExpected %d roots: [x1ref] = [%lg], [x2ref] = [%lg]\nGott roots: [x1] = [%lg], [x2] = [%lg]\n\n", unit_a, unit_b, unit_c, real_count_roots, x1ref, x2ref, x_1, x_2))
-#define TIME_SLEEP 0
-
-
-//-----------------------------------------------------------------------------
-
-
-#define DEFAULT     "\x1b[0m"
-#define RED         "\x1b[31m"
-#define SAND        "\033[38;5;137m"
-#define BACK_SAND   "\033[48;5;223m"
-#define GREEN       "\e[0;32m"
-#define MAGENTA     "\033[35m"
-#define BLUE        "\e[0;36m"
-
+#include "init.h"
 
 //=============================================================================
 
@@ -107,148 +37,6 @@ int main() {
 }
 
 
-/**
- * @brief A unit testing function that reads from an array and performs complex checks.
- * @details It allows you to easily copy-paste heavy, third-party tests to rigorously verify the root calculation logic.
- *
- */
-int unit_test_arrays() {
-    printf(SAND "\nOk, here your UNIT tests! Lets check it:\n" DEFAULT);
-    neuroslop("units from Array");
-
-    int count = 0;
-    struct ReadNumsUnits test[] = {{.a = 0, .b = 1, .c = 0, .real_count_roots = 1, .x1ref = 0,  .x2ref = NAN},
-                                   {.a = 1, .b = 2, .c = 1, .real_count_roots = 1, .x1ref = -1, .x2ref = NAN}};
-    int count_tests = sizeof(test) / sizeof(test[0]);
-
-    for (int i = 0; i < count_tests; i++) {
-        if (run_test_nums(test[i]))
-            count++;
-    }
-    printf("From" RED " arrays " DEFAULT
-           "Program check " GREEN "right " RED "{%d} " DEFAULT
-           "from " RED "{%d} " DEFAULT "inputs\n", count, count_tests);
-    return 0;
-}
-
-
-/**
- * @brief Root Validation Unit Test Function
- * @details The execution flow is as follows:
- * Performs line-by-line reading from a file that contains the predetermined, ordered roots (or NAN).
- * Populates a test structure with the required parsed variables.
- * Executes the structure validation function: run_test_nums(test).
- * At the end, prints the total number of tests the program passed correctly.
- *
- */
-int unit_solving_test() {
-    char unit_str[MAXLINE] = {};
-    int count_strs = 0, count_right_tests = 0;
-    struct ReadNumsUnits test;
-    test.x1ref = NAN;
-    test.x2ref = NAN;
-
-    neuroslop("units from UNIT_test.txt");
-
-    FILE *file = fopen("UNIT_test.txt", "r");
-
-    fgets(unit_str, sizeof(unit_str), file);
-    while (sscanf(unit_str, "%lf %lf %lf %d %lf %lf",
-                    &test.a, &test.b, &test.c, &test.real_count_roots, &test.x1ref, &test.x2ref) > 0) {
-        count_strs++;
-        if (run_test_nums(test)) {
-            count_right_tests++;
-        }
-        else
-            printf("Test {%d} was " RED "FAILED \n" DEFAULT, count_strs);
-
-        test.x1ref = NAN;
-        test.x2ref = NAN;
-        fgets(unit_str, sizeof(unit_str), file);
-    }
-
-    printf("Unit tests " GREEN "right" DEFAULT " in "
-           RED "{%d}" DEFAULT" from " RED"{%d} " DEFAULT "checks\n", count_right_tests, count_strs);
-    return 0;
-}
-
-
-/**
- * @brief Second Unit Test: String Validation
- * @details Reads three potential input strings line-by-line.
- * Uses the is_str_is_num() function to check if each string evaluates to a valid number.
- * Prints the final count of correctly parsed strings.
- *
- */
-int unit_check_str_isnum() {
-    char input_a[MAXLINE] = {};
-    char input_b[MAXLINE] = {};
-    char input_c[MAXLINE] = {};
-    int ans = 0;
-    int right_tests = 0, all_tests = 0;
-    char unit_str[MAXLINE] = {};
-
-    neuroslop("unit test on checking STR is NUMBERS");
-
-    FILE *file2 = fopen("UNIT_test_CHECK_NUM.txt", "r");
-    fgets(unit_str, sizeof(unit_str), file2);
-
-    while (sscanf(unit_str, "%s %s %s %d", input_a, input_b, input_c, &ans) > 0) {
-        if (ans == (is_str_is_num(input_a) & is_str_is_num(input_b) & is_str_is_num(input_c)))
-            right_tests++;
-        all_tests++;
-        fgets(unit_str, sizeof(unit_str), file2);
-     }
-
-    printf("Program was read " GREEN "right " RED "{%d}" DEFAULT" from "
-            RED "{%d} " DEFAULT "unit test inputs\n", right_tests, all_tests);
-    neuroslop("starting input");
-
-    return 0;
-}
-
-
-/**
- * @brief Executes a single unit test for root calculation, following the same logic as the main program.
- * @details It suppresses output for successful tests, printing only the failed ones.
- * Returns an error status, or the correctly computed roots along with their count.
- *
- * @return bool
- */
-bool run_test_nums(struct ReadNumsUnits test) {
-    double counted_x1 = NAN, counted_x2 = NAN;
-    int count_roots = 0;
-    bool check_right = 0;
-
-    count_roots = calc_roots(test.a, test.b, test.c, &counted_x1, &counted_x2);
-
-    switch (test.real_count_roots) {
-        case TWO_ROOTS:
-            sort_x(&counted_x1, &counted_x2);
-            if (count_roots == test.real_count_roots && is_zero(counted_x1 - test.x1ref) && is_zero(counted_x2 - test.x2ref))
-                check_right++;
-            break;
-
-        case ONE_ROOT:
-            if (count_roots == test.real_count_roots && is_zero(counted_x1 - test.x1ref) && isnan(counted_x2))
-                check_right++;
-            break;
-
-        case UNLIMITED_ROOTS:
-        case NO_ROOTS:
-            if (count_roots == test.real_count_roots && isnan(counted_x1) && isnan(counted_x2))
-                check_right++;
-            break;
-
-        default:
-            break;
-        }
-    if (!check_right)
-        PRINT_WRONG_UNIT(test.a, test.b, test.c, test.real_count_roots, test.x1ref, test.x2ref, counted_x1, counted_x2);
-
-    return check_right;
-}
-
 
 /**
  * @brief A function that retrieves the three coefficients of a quadratic equation.
@@ -259,21 +47,12 @@ bool run_test_nums(struct ReadNumsUnits test) {
  * @param[out] c Coefficient {c}
  */
 int roots_int(double *a, double *b, double *c) {
-    double internal_a = 0.0, internal_b = 0.0, internal_c = 0.0;
-
     printf(SAND "If you want to solve ");
     printf("quadratic equations, such as ax^2 + bx + c = 0, type 3 numbers:\n\n" DEFAULT);
-//закинуть принт в функцию
-    printf("Please, print {a}: ");
-    internal_a = read_number('a');
-    printf("Please, print {b}: ");
-    internal_b = read_number('b');
-    printf("Please, print {c}: ");
-    internal_c = read_number('c');
 
-    *a = internal_a;
-    *b = internal_b;
-    *c = internal_c;
+    *a = read_number('a');
+    *b = read_number('b');
+    *c = read_number('c');
 
     return 0;
 }
@@ -290,6 +69,8 @@ double read_number(char argue) {
     bool check_num = 0;
     double num = 0.0;
     char str[MAXLINE] = {};
+
+    printf("Please, print {%c}: ", argue);
 
     fgets(str, sizeof(str), stdin);
     check_num = is_str_is_num(str);
