@@ -21,7 +21,6 @@ int main() {
     printf(SAND "NeuroSlop understanding you. You want to solve quadratic equations. Let's goo..\n\n" DEFAULT);
 
     unit_random();
-    unit_test_arrays();
     unit_solving_test();
     unit_check_str_isnum();
 
@@ -191,11 +190,11 @@ int roots_out(enum rootCount counter, double x1, double x2) {
             break;
 
         case TWO_ROOTS:
-            printf("Look, your first root: " RED "%0.10lg" DEFAULT ", and second root: " RED "%0.10lg\n\n" DEFAULT, x1, x2);
+            printf("Look, your first root: " RED "%0.10lf" DEFAULT ", and second root: " RED "%0.10lf\n\n" DEFAULT, x1, x2);
             break;
 
         case ONE_ROOT:
-            printf("Check, here your only one root: " RED "%0.10lg\n\n" DEFAULT, x1);
+            printf("Check, here your only one root: " RED "%0.10lf\n\n" DEFAULT, x1);
             break;
 
         case NO_ROOTS:

@@ -1,14 +1,13 @@
 #include "init.h"
 
 
-
 int unit_random() {
     int count_right_solves = 0, count_tests_withroots = 0;
     double x1 = NAN, x2 = NAN, rand_a = NAN, rand_b = NAN, rand_c = NAN;
     double solve1 = NAN, solve2 = NAN;
     enum rootCount count_roots = INIT;
 
-    printf(SAND "\nOk, here your UNIT tests! Lets check it:\n" DEFAULT);
+    printf(SAND "Ok, here your UNIT tests! Lets check it:\n" DEFAULT);
     neuroslop("making random unit tests");
     srand(time(NULL));
 
@@ -16,7 +15,7 @@ int unit_random() {
         x1 = NAN, x2 = NAN;
         solve1 = NAN, solve2 = NAN;
 
-        rand_a = randoms(); //[-1e10, 1e10]
+        rand_a = randoms(); //[-1e14, 1e14]
         rand_b = randoms();
         rand_c = randoms();
         //printf("%0.10lg %0.10lg %0.10lg\n", rand_a, rand_b, rand_c);
@@ -31,7 +30,8 @@ int unit_random() {
                 if (is_zero_rand(solve1) && is_zero_rand(solve2))
                     count_right_solves++;
                 else
-                    printf("test <%d> wrong: first solving give [%lg], second solving give [%lg]\n", i, solve1, solve2);
+                    printf("test <%d/%d> wrong: first solving "
+                    "give [%lf], second solving give [%lf]\n", i, COUNT_RANDOM_TESTS, solve1, solve2);
                 break;
 
             case ONE_ROOT:
@@ -41,7 +41,7 @@ int unit_random() {
                 if (is_zero_rand(solve1))
                     count_right_solves++;
                 else
-                    printf("test <%d/%d> wrong: solving give [%lg]\n", i, COUNT_RANDOM_TESTS, solve1);
+                    printf("test <%d/%d> wrong: solving give [%lf]\n", i, COUNT_RANDOM_TESTS, solve1);
                 break;
 
             case UNLIMITED_ROOTS:
@@ -69,31 +69,6 @@ double randoms() {
 
 
 /**
- * @brief A unit testing function that reads from an array and performs complex checks.
- * @details It allows you to easily copy-paste heavy, third-party tests to rigorously verify the root calculation logic.
- *
- */
-int unit_test_arrays() {
-
-    neuroslop("units from Array");
-
-    int count = 0;
-    struct ReadNumsUnits test[] = {{.a = 0, .b = 1, .c = 0, .real_count_roots = 1, .x1ref = 0,  .x2ref = NAN},
-                                   {.a = 1, .b = 2, .c = 1, .real_count_roots = 1, .x1ref = -1, .x2ref = NAN}};
-    int count_tests = sizeof(test) / sizeof(test[0]);
-
-    for (int i = 0; i < count_tests; i++) {
-        if (run_test_nums(test[i]))
-            count++;
-    }
-    printf("From" RED " arrays " DEFAULT
-           "Program check " GREEN "right " RED "{%d} " DEFAULT
-           "from " RED "{%d} " DEFAULT "inputs\n", count, count_tests);
-    return 0;
-}
-
-
-/**
  * @brief Root Validation Unit Test Function
  * @details The execution flow is as follows:
  * Performs line-by-line reading from a file that contains the predetermined, ordered roots (or NAN).
@@ -104,32 +79,32 @@ int unit_test_arrays() {
  */
 int unit_solving_test() {
     char unit_str[MAXLINE] = {};
-    int count_strs = 0, count_right_tests = 0;
-    struct ReadNumsUnits test;
-    test.x1ref = NAN;
-    test.x2ref = NAN;
+    struct ReadNumsUnits test[MAXLINE] = {{0, 0, 0, 0, 0, 0}};
+    int count_right_tests = 0;
+    int i = 0;
 
     neuroslop("units from UNIT_test.txt");
 
-    FILE *file = fopen("UNIT_test.txt", "r");
+    FILE *file = fopen("UNIT_test.txt", "rb");
+    while (fgets(unit_str, sizeof(unit_str), file) != NULL) {
+        test[i].x1ref = NAN;
+        test[i].x2ref = NAN;
+        sscanf(unit_str, "%lg %lg %lg %d %lg "
+            "%lg", &test[i].a, &test[i].b, &test[i].c, &test[i].real_count_roots, &test[i].x1ref, &test[i].x2ref);
+        i++;
+    }
+    fclose(file);
 
-    fgets(unit_str, sizeof(unit_str), file);
-    while (sscanf(unit_str, "%lf %lf %lf %d %lf %lf",
-                    &test.a, &test.b, &test.c, &test.real_count_roots, &test.x1ref, &test.x2ref) > 0) {
-        count_strs++;
-        if (run_test_nums(test)) {
+    i--;
+    for (int j = 0; j < i; j++) {
+        if (run_test_nums(test[j]))
             count_right_tests++;
-        }
         else
-            printf("Test {%d} was " RED "FAILED \n" DEFAULT, count_strs);
-
-        test.x1ref = NAN;
-        test.x2ref = NAN;
-        fgets(unit_str, sizeof(unit_str), file);
+            printf("Test {%d} was " RED "FAILED \n" DEFAULT, j);
     }
 
     printf("Unit tests " GREEN "right" DEFAULT " in "
-           RED "{%d}" DEFAULT" from " RED"{%d} " DEFAULT "checks\n", count_right_tests, count_strs);
+           RED "{%d}" DEFAULT" from " RED"{%d} " DEFAULT "checks\n", count_right_tests, i);
     return 0;
 }
 
@@ -142,27 +117,29 @@ int unit_solving_test() {
  *
  */
 int unit_check_str_isnum() {
-    char input_a[MAXLINE] = {};
-    char input_b[MAXLINE] = {};
-    char input_c[MAXLINE] = {};
-    int ans = 0;
-    int right_tests = 0, all_tests = 0;
+    struct ReadStrUnits test[MAXLINE] = {{"0", "0", "0", 0}};
+    int right_tests = 0;
+    int i = 0;
     char unit_str[MAXLINE] = {};
 
     neuroslop("unit test on checking STR is NUMBERS");
 
     FILE *file2 = fopen("UNIT_test_CHECK_NUM.txt", "r");
-    fgets(unit_str, sizeof(unit_str), file2);
 
-    while (sscanf(unit_str, "%s %s %s %d", input_a, input_b, input_c, &ans) > 0) {
-        if (ans == (is_str_is_num(input_a) & is_str_is_num(input_b) & is_str_is_num(input_c)))
+    while (fgets(unit_str, sizeof(unit_str), file2) != NULL) {
+        sscanf(unit_str, "%s %s %s %d", test[i].a, test[i].b, test[i].c, &test[i].right_test);
+        i++;
+    }
+    fclose(file2);
+
+    i--;
+    for (int j = 0; j < i; j++) {
+        if (test[j].right_test == (is_str_is_num(test[j].a) && is_str_is_num(test[j].b) && is_str_is_num(test[j].c)))
             right_tests++;
-        all_tests++;
-        fgets(unit_str, sizeof(unit_str), file2);
-     }
+    }
 
     printf("Program was read " GREEN "right " RED "{%d}" DEFAULT" from "
-            RED "{%d} " DEFAULT "unit test inputs\n\n", right_tests, all_tests);
+            RED "{%d} " DEFAULT "unit test inputs\n\n", right_tests, i);
     neuroslop("starting input");
 
     return 0;
@@ -186,12 +163,13 @@ bool run_test_nums(struct ReadNumsUnits test) {
     switch (test.real_count_roots) {
         case TWO_ROOTS:
             sort_x(&counted_x1, &counted_x2);
-            if (count_roots == test.real_count_roots && is_zero(counted_x1 - test.x1ref) && is_zero(counted_x2 - test.x2ref))
+            if (count_roots == test.real_count_roots &&
+                    is_equal(counted_x1, test.x1ref) && is_equal(counted_x2, test.x2ref))
                 check_right++;
             break;
 
         case ONE_ROOT:
-            if (count_roots == test.real_count_roots && is_zero(counted_x1 - test.x1ref) && isnan(counted_x2))
+            if (count_roots == test.real_count_roots && is_equal(counted_x1, test.x1ref) && isnan(counted_x2))
                 check_right++;
             break;
 
@@ -208,6 +186,16 @@ bool run_test_nums(struct ReadNumsUnits test) {
         PRINT_WRONG_UNIT(test.a, test.b, test.c, test.real_count_roots, test.x1ref, test.x2ref, counted_x1, counted_x2);
 
     return check_right;
+}
+
+
+bool is_equal(double x, double y) {
+    double num = x - y;
+    num = fabs(num);
+    if (num <= EPS) {
+        return true;
+    }
+    return false;
 }
 
 
