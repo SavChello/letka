@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['print_5fwrong_5funit_0',['PRINT_WRONG_UNIT',['../init_8h.html#a04cc5b39509213959e1fc501b37d7a8d',1,'init.h']]]
+  ['magenta_0',['MAGENTA',['../init_8h.html#a6f699060902f800f12aaae150f3a708e',1,'init.h']]],
+  ['maxline_1',['MAXLINE',['../init_8h.html#a3e937c42922f7601edb17b747602c471',1,'init.h']]]
 ];

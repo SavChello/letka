@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['green_0',['GREEN',['../init_8h.html#acfbc006ea433ad708fdee3e82996e721',1,'init.h']]]
+  ['default_0',['DEFAULT',['../init_8h.html#a3da44afeba217135a680a7477b5e3ce3',1,'init.h']]]
 ];
