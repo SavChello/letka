@@ -94,6 +94,8 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_read_nums_units.html">ReadNumsUnits</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unit test case data.  <a href="struct_read_nums_units.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_read_str_units.html">ReadStrUnits</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
@@ -101,7 +103,7 @@ Macros</h2></td></tr>
 <tr class="separator:a3e937c42922f7601edb17b747602c471"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04cc5b39509213959e1fc501b37d7a8d" id="r_a04cc5b39509213959e1fc501b37d7a8d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="init_8h.html#a04cc5b39509213959e1fc501b37d7a8d">PRINT_WRONG_UNIT</a>(unit_a,  unit_b,  unit_c,  real_count_roots,  x1ref,  x2ref,  x_1,  x_2)&#160;&#160;&#160;(printf(&quot;[a] = [%lg], [b] = [%lg], [c] = [%lg]\nExpected %d roots: [x1ref] = [%lg], [x2ref] = [%lg]\nGott roots: [x1] = [%lg], [x2] = [%lg]\n\n&quot;, unit_a, unit_b, unit_c, real_count_roots, x1ref, x2ref, x_1, x_2))</td></tr>
 <tr class="separator:a04cc5b39509213959e1fc501b37d7a8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a460b2d55d43010c5271d676751fe2325" id="r_a460b2d55d43010c5271d676751fe2325"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="init_8h.html#a460b2d55d43010c5271d676751fe2325">TIME_SLEEP</a>&#160;&#160;&#160;250</td></tr>
+<tr class="memitem:a460b2d55d43010c5271d676751fe2325" id="r_a460b2d55d43010c5271d676751fe2325"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="init_8h.html#a460b2d55d43010c5271d676751fe2325">TIME_SLEEP</a>&#160;&#160;&#160;20</td></tr>
 <tr class="separator:a460b2d55d43010c5271d676751fe2325"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a070ca0b56e60311344f9c09a137e62db" id="r_a070ca0b56e60311344f9c09a137e62db"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="init_8h.html#a070ca0b56e60311344f9c09a137e62db">COUNT_RANDOM_TESTS</a>&#160;&#160;&#160;500</td></tr>
 <tr class="separator:a070ca0b56e60311344f9c09a137e62db"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -140,9 +142,6 @@ Functions</h2></td></tr>
 <tr class="separator:a195e395f26580758079b7962fc5b4eae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acec5c9e0af9ae836f352b2a71bf812f3" id="r_acec5c9e0af9ae836f352b2a71bf812f3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="init_8h.html#acec5c9e0af9ae836f352b2a71bf812f3">randoms</a> ()</td></tr>
 <tr class="separator:acec5c9e0af9ae836f352b2a71bf812f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67f6fe96d1f727aaa2810983904212ec" id="r_a67f6fe96d1f727aaa2810983904212ec"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="init_8h.html#a67f6fe96d1f727aaa2810983904212ec">unit_test_arrays</a> ()</td></tr>
-<tr class="memdesc:a67f6fe96d1f727aaa2810983904212ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">A unit testing function that reads from an array and performs complex checks.  <br /></td></tr>
-<tr class="separator:a67f6fe96d1f727aaa2810983904212ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5771a51d3cb8a715c8e9f87a83030e96" id="r_a5771a51d3cb8a715c8e9f87a83030e96"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="init_8h.html#a5771a51d3cb8a715c8e9f87a83030e96">unit_solving_test</a> ()</td></tr>
 <tr class="memdesc:a5771a51d3cb8a715c8e9f87a83030e96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Root Validation Unit Test Function.  <br /></td></tr>
 <tr class="separator:a5771a51d3cb8a715c8e9f87a83030e96"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -179,6 +178,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a818c7ac4f30b3ab52a36a116ed00d0ef" id="r_a818c7ac4f30b3ab52a36a116ed00d0ef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="init_8h.html#a818c7ac4f30b3ab52a36a116ed00d0ef">is_zero</a> (double num)</td></tr>
 <tr class="memdesc:a818c7ac4f30b3ab52a36a116ed00d0ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">A function that determines whether a number, or the difference between two numbers, is within the recommended precision tolerance (EPS).  <br /></td></tr>
 <tr class="separator:a818c7ac4f30b3ab52a36a116ed00d0ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fbdf2aaa8257131a289c10f796ec25f" id="r_a8fbdf2aaa8257131a289c10f796ec25f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="init_8h.html#a8fbdf2aaa8257131a289c10f796ec25f">is_equal</a> (double x, double y)</td></tr>
+<tr class="separator:a8fbdf2aaa8257131a289c10f796ec25f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad3d4a5318eb2a4c0549a99c9c0b1c931" id="r_ad3d4a5318eb2a4c0549a99c9c0b1c931"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="init_8h.html#ad3d4a5318eb2a4c0549a99c9c0b1c931">is_zero_rand</a> (double num)</td></tr>
 <tr class="separator:ad3d4a5318eb2a4c0549a99c9c0b1c931"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a144a397c63f27640551a5fbcb511a223" id="r_a144a397c63f27640551a5fbcb511a223"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="init_8h.html#a144a397c63f27640551a5fbcb511a223">neuroslop</a> (const char *c)</td></tr>
@@ -190,12 +191,12 @@ Variables</h2></td></tr>
 <tr class="memitem:afe01386a82fedc016455a43c20280a97" id="r_afe01386a82fedc016455a43c20280a97"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="init_8h.html#afe01386a82fedc016455a43c20280a97">EPS</a> = 1e-5</td></tr>
 <tr class="memdesc:afe01386a82fedc016455a43c20280a97"><td class="mdescLeft">&#160;</td><td class="mdescRight">EPS - The recommended error margin for calculations.  <br /></td></tr>
 <tr class="separator:afe01386a82fedc016455a43c20280a97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a004f713323c970c2a110785ecc866b3d" id="r_a004f713323c970c2a110785ecc866b3d"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="init_8h.html#a004f713323c970c2a110785ecc866b3d">RAND_EPS</a> = 1e-3</td></tr>
+<tr class="memitem:a004f713323c970c2a110785ecc866b3d" id="r_a004f713323c970c2a110785ecc866b3d"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="init_8h.html#a004f713323c970c2a110785ecc866b3d">RAND_EPS</a> = 2</td></tr>
+<tr class="memdesc:a004f713323c970c2a110785ecc866b3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Margin for random coefficients is 0.5%.  <br /></td></tr>
 <tr class="separator:a004f713323c970c2a110785ecc866b3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aacc2a74e29652059e4bf1e657644947f" id="r_aacc2a74e29652059e4bf1e657644947f"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="init_8h.html#aacc2a74e29652059e4bf1e657644947f">MY_RAND_MAX</a> = 1e10</td></tr>
-<tr class="memdesc:aacc2a74e29652059e4bf1e657644947f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Margin for random coefs is 0.1%.  <br /></td></tr>
+<tr class="memitem:aacc2a74e29652059e4bf1e657644947f" id="r_aacc2a74e29652059e4bf1e657644947f"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="init_8h.html#aacc2a74e29652059e4bf1e657644947f">MY_RAND_MAX</a> = 1e14</td></tr>
 <tr class="separator:aacc2a74e29652059e4bf1e657644947f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a494311321e3ce5d58a09022bb632fce0" id="r_a494311321e3ce5d58a09022bb632fce0"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="init_8h.html#a494311321e3ce5d58a09022bb632fce0">MY_RAND_MIN</a> = -1e10</td></tr>
+<tr class="memitem:a494311321e3ce5d58a09022bb632fce0" id="r_a494311321e3ce5d58a09022bb632fce0"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="init_8h.html#a494311321e3ce5d58a09022bb632fce0">MY_RAND_MIN</a> = -1e14</td></tr>
 <tr class="separator:a494311321e3ce5d58a09022bb632fce0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
@@ -396,7 +397,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define TIME_SLEEP&#160;&#160;&#160;250</td>
+          <td class="memname">#define TIME_SLEEP&#160;&#160;&#160;20</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -420,13 +421,13 @@ Variables</h2></td></tr>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a3d8f829519f9536e0f16e76614c5794da0cb1b2c6a7db1f1084886c98909a3f36" name="a3d8f829519f9536e0f16e76614c5794da0cb1b2c6a7db1f1084886c98909a3f36"></a>INIT&#160;</td><td class="fielddoc"><p>For initialization, for check program's mistakes. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a3d8f829519f9536e0f16e76614c5794dab9a321da349ac1355b717745736ad90c" name="a3d8f829519f9536e0f16e76614c5794dab9a321da349ac1355b717745736ad90c"></a>NO_ROOTS&#160;</td><td class="fielddoc"><p>No real roots, may D &lt; 0. </p>
+<tr><td class="fieldname"><a id="a3d8f829519f9536e0f16e76614c5794dab9a321da349ac1355b717745736ad90c" name="a3d8f829519f9536e0f16e76614c5794dab9a321da349ac1355b717745736ad90c"></a>NO_ROOTS&#160;</td><td class="fielddoc"><p>No distinct roots. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a3d8f829519f9536e0f16e76614c5794da6700c0f6efd23571cb22aefd2510b1cf" name="a3d8f829519f9536e0f16e76614c5794da6700c0f6efd23571cb22aefd2510b1cf"></a>ONE_ROOT&#160;</td><td class="fielddoc"><p>One distinct root, D = 0. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a3d8f829519f9536e0f16e76614c5794da876622d3c0b008da13a3685c64714e81" name="a3d8f829519f9536e0f16e76614c5794da876622d3c0b008da13a3685c64714e81"></a>TWO_ROOTS&#160;</td><td class="fielddoc"><p>Two distinct root, D &gt; 0. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a3d8f829519f9536e0f16e76614c5794dae53f6189ad3a65f5d4c6966de3feb5a0" name="a3d8f829519f9536e0f16e76614c5794dae53f6189ad3a65f5d4c6966de3feb5a0"></a>UNLIMITED_ROOTS&#160;</td><td class="fielddoc"><p>Any real number is solution. </p>
+<tr><td class="fieldname"><a id="a3d8f829519f9536e0f16e76614c5794dae53f6189ad3a65f5d4c6966de3feb5a0" name="a3d8f829519f9536e0f16e76614c5794dae53f6189ad3a65f5d4c6966de3feb5a0"></a>UNLIMITED_ROOTS&#160;</td><td class="fielddoc"><p>Any root is solution. </p>
 </td></tr>
 </table>
 
@@ -513,6 +514,34 @@ Variables</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>true If 'yes' is entered, the loop in main restarts. </dd>
 <dd>
 false If 'no' is entered, the loop terminates. </dd></dl>
+
+</div>
+</div>
+<a id="a8fbdf2aaa8257131a289c10f796ec25f" name="a8fbdf2aaa8257131a289c10f796ec25f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fbdf2aaa8257131a289c10f796ec25f">&#9670;&#160;</a></span>is_equal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_equal </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -909,26 +938,6 @@ false This value cannot be considered approximately zero. </dd></dl>
 
 </div>
 </div>
-<a id="a67f6fe96d1f727aaa2810983904212ec" name="a67f6fe96d1f727aaa2810983904212ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a67f6fe96d1f727aaa2810983904212ec">&#9670;&#160;</a></span>unit_test_arrays()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int unit_test_arrays </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>A unit testing function that reads from an array and performs complex checks. </p>
-<p>It allows you to easily copy-paste heavy, third-party tests to rigorously verify the root calculation logic. </p>
-
-</div>
-</div>
 <h2 class="groupheader">Variable Documentation</h2>
 <a id="afe01386a82fedc016455a43c20280a97" name="afe01386a82fedc016455a43c20280a97"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afe01386a82fedc016455a43c20280a97">&#9670;&#160;</a></span>EPS</h2>
@@ -953,12 +962,10 @@ false This value cannot be considered approximately zero. </dd></dl>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const double MY_RAND_MAX = 1e10</td>
+          <td class="memname">const double MY_RAND_MAX = 1e14</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Margin for random coefs is 0.1%. </p>
 
 </div>
 </div>
@@ -969,7 +976,7 @@ false This value cannot be considered approximately zero. </dd></dl>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const double MY_RAND_MIN = -1e10</td>
+          <td class="memname">const double MY_RAND_MIN = -1e14</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -983,10 +990,12 @@ false This value cannot be considered approximately zero. </dd></dl>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const double RAND_EPS = 1e-3</td>
+          <td class="memname">const double RAND_EPS = 2</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Margin for random coefficients is 0.5%. </p>
 
 </div>
 </div>
