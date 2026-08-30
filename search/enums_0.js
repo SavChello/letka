@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['rootcount_0',['rootCount',['../init_8h.html#a3d8f829519f9536e0f16e76614c5794d',1,'init.h']]]
+  ['checkstrisnum_0',['checkStrIsNum',['../init_8h.html#aab3d539b80cacbb1a14d23f6d0196066',1,'init.h']]]
 ];

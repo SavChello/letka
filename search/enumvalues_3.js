@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['two_5froots_0',['TWO_ROOTS',['../init_8h.html#a3d8f829519f9536e0f16e76614c5794da876622d3c0b008da13a3685c64714e81',1,'init.h']]]
+  ['right_5fprompt_0',['RIGHT_PROMPT',['../init_8h.html#aab3d539b80cacbb1a14d23f6d0196066a9ba016d0a5fffe82d20cf2d0ac66f21b',1,'init.h']]]
 ];

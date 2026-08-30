@@ -90,9 +90,6 @@ Functions</h2></td></tr>
 <tr class="memitem:a9f7b748545ec154acb3f3bcd6f2209f3" id="r_a9f7b748545ec154acb3f3bcd6f2209f3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="kvadr_8cpp.html#a9f7b748545ec154acb3f3bcd6f2209f3">is_str_is_num</a> (char *str)</td></tr>
 <tr class="memdesc:a9f7b748545ec154acb3f3bcd6f2209f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">String-to-double validation function.  <br /></td></tr>
 <tr class="separator:a9f7b748545ec154acb3f3bcd6f2209f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f0715279b8bc7d68a0ae54e462c01a0" id="r_a5f0715279b8bc7d68a0ae54e462c01a0"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="kvadr_8cpp.html#a5f0715279b8bc7d68a0ae54e462c01a0">solve_one_root</a> (double a, double b)</td></tr>
-<tr class="memdesc:a5f0715279b8bc7d68a0ae54e462c01a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">A function that returns the solution to a linear equation of the form ax + b = 0.  <br /></td></tr>
-<tr class="separator:a5f0715279b8bc7d68a0ae54e462c01a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af65f5572319a374b97b957538b85f211" id="r_af65f5572319a374b97b957538b85f211"><td class="memItemLeft" align="right" valign="top">enum <a class="el" href="init_8h.html#a3d8f829519f9536e0f16e76614c5794d">rootCount</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="kvadr_8cpp.html#af65f5572319a374b97b957538b85f211">calc_roots</a> (double a, double b, double c, double *x1, double *x2)</td></tr>
 <tr class="memdesc:af65f5572319a374b97b957538b85f211"><td class="mdescLeft">&#160;</td><td class="mdescRight">A root calculation function that returns a value of type enum rootCount.  <br /></td></tr>
 <tr class="separator:af65f5572319a374b97b957538b85f211"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -102,9 +99,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a9b49ea4410b806bf20a6a14167a6d4be" id="r_a9b49ea4410b806bf20a6a14167a6d4be"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="kvadr_8cpp.html#a9b49ea4410b806bf20a6a14167a6d4be">check_to_go</a> ()</td></tr>
 <tr class="memdesc:a9b49ea4410b806bf20a6a14167a6d4be"><td class="mdescLeft">&#160;</td><td class="mdescRight">A function that checks if the user wants to continue solving equations.  <br /></td></tr>
 <tr class="separator:a9b49ea4410b806bf20a6a14167a6d4be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2222fdfd6541cbb3e857ee1657db1e6c" id="r_a2222fdfd6541cbb3e857ee1657db1e6c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="kvadr_8cpp.html#a2222fdfd6541cbb3e857ee1657db1e6c">sort_x</a> (double *x, double *y)</td></tr>
-<tr class="memdesc:a2222fdfd6541cbb3e857ee1657db1e6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">A utility function that sorts two numbers.  <br /></td></tr>
-<tr class="separator:a2222fdfd6541cbb3e857ee1657db1e6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a910c7a6f7334e053ced8982ba8b23adf" id="r_a910c7a6f7334e053ced8982ba8b23adf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="kvadr_8cpp.html#a910c7a6f7334e053ced8982ba8b23adf">sort_x</a> (double *x1, double *x2)</td></tr>
+<tr class="memdesc:a910c7a6f7334e053ced8982ba8b23adf"><td class="mdescLeft">&#160;</td><td class="mdescRight">A utility function that sorts two numbers.  <br /></td></tr>
+<tr class="separator:a910c7a6f7334e053ced8982ba8b23adf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a818c7ac4f30b3ab52a36a116ed00d0ef" id="r_a818c7ac4f30b3ab52a36a116ed00d0ef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="kvadr_8cpp.html#a818c7ac4f30b3ab52a36a116ed00d0ef">is_zero</a> (double num)</td></tr>
 <tr class="memdesc:a818c7ac4f30b3ab52a36a116ed00d0ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">A function that determines whether a number, or the difference between two numbers, is within the recommended precision tolerance (EPS).  <br /></td></tr>
 <tr class="separator:a818c7ac4f30b3ab52a36a116ed00d0ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -423,46 +420,8 @@ false This value cannot be considered approximately zero. </dd></dl>
 
 </div>
 </div>
-<a id="a5f0715279b8bc7d68a0ae54e462c01a0" name="a5f0715279b8bc7d68a0ae54e462c01a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f0715279b8bc7d68a0ae54e462c01a0">&#9670;&#160;</a></span>solve_one_root()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double solve_one_root </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>A function that returns the solution to a linear equation of the form ax + b = 0. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>Coefficient a </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>Coefficient b </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>double The single solution: root x </dd></dl>
-
-</div>
-</div>
-<a id="a2222fdfd6541cbb3e857ee1657db1e6c" name="a2222fdfd6541cbb3e857ee1657db1e6c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2222fdfd6541cbb3e857ee1657db1e6c">&#9670;&#160;</a></span>sort_x()</h2>
+<a id="a910c7a6f7334e053ced8982ba8b23adf" name="a910c7a6f7334e053ced8982ba8b23adf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a910c7a6f7334e053ced8982ba8b23adf">&#9670;&#160;</a></span>sort_x()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -471,13 +430,13 @@ false This value cannot be considered approximately zero. </dd></dl>
           <td class="memname">int sort_x </td>
           <td>(</td>
           <td class="paramtype">double *&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
+          <td class="paramname"><em>x1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double *&#160;</td>
-          <td class="paramname"><em>y</em>&#160;</td>
+          <td class="paramname"><em>x2</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
