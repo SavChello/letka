@@ -47,8 +47,7 @@ int main() {
  * @param[out] c Coefficient {c}
  */
 int roots_int(double *a, double *b, double *c) {
-    printf(SAND "If you want to solve ");
-    printf("quadratic equations, such as ax^2 + bx + c = 0, type 3 numbers:\n\n" DEFAULT);
+    printf(SAND "If you want to solve quadratic equations, such as ax^2 + bx + c = 0, type 3 numbers:\n\n" DEFAULT);
 
     *a = read_number('a');
     *b = read_number('b');
@@ -105,16 +104,6 @@ bool is_str_is_num(char *str) {
     return true;
 }
 
-/**
- * @brief A function that returns the solution to a linear equation of the form ax + b = 0
- *
- * @param[in] a Coefficient a
- * @param[in] b Coefficient b
- * @return double The single solution: root x
- */
-double solve_one_root(double a, double b) {
-    return -b / a;
-}
 
 /**
  * @brief A root calculation function that returns a value of type enum rootCount
@@ -130,18 +119,15 @@ double solve_one_root(double a, double b) {
  * @return enum rootCount The number of roots
  */
 enum rootCount calc_roots(double a, double b, double c, double *x1, double *x2) {
-    double d = (b * b) - (a * c * 4);
+
 
     if (!is_zero(a)) {
-
-        if (is_zero(c)) {
-            *x1 = solve_one_root(a, b);
-            return TWO_ROOTS;
-            }
+        double d = (b * b) - (a * c * 4);
 
         if (d > EPS) {
-            *x1 = (-b + sqrt(d)) / (2 * a);
-            *x2 = (-b - sqrt(d)) / (2 * a);
+            double solve_sqrt = sqrt(d);
+            *x1 = (-b - solve_sqrt) / (2 * a);
+            *x2 = (-b + solve_sqrt) / (2 * a);
             return TWO_ROOTS;
             }
 
@@ -150,26 +136,23 @@ enum rootCount calc_roots(double a, double b, double c, double *x1, double *x2) 
             return ONE_ROOT;
             }
 
-        else {
+        else
             return NO_ROOTS;
-            }
     }
 
     else {
         if (is_zero(b)) {
-            if (is_zero(c)) {
+            if (is_zero(c))
                 return UNLIMITED_ROOTS;
-                }
-            else  {
+            else
                 return NO_ROOTS;
-                }
         }
 
         else {
-            *x1 = solve_one_root(b, c);
+            *x1 = -c / b;
             return ONE_ROOT;
             }
-        }
+    }
 }
 
 
@@ -200,6 +183,7 @@ int roots_out(enum rootCount counter, double x1, double x2) {
         case NO_ROOTS:
             printf("Unfortunately, the equation has " RED "0 roots" DEFAULT". Try different arguments.\n\n");
             break;
+
         case INIT:
             printf("Oops, Neuroslop was solving nothing..\n\n");
             break;
@@ -244,12 +228,12 @@ bool check_to_go() {
  * @param[in, out] y Pointer to the second value.
  * @return int
  */
-int sort_x(double *x, double *y) {
+int sort_x(double *x1, double *x2) {
     double temp = 0.0;
-    if (*x > *y) {
-        temp = *x;
-        *x = *y;
-        *y = temp;
+    if (*x1 > *x2) {
+        temp = *x1;
+        *x1 = *x2;
+        *x2 = temp;
     }
     return 0;
 }

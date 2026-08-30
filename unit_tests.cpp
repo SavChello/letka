@@ -11,6 +11,7 @@ int unit_random() {
     neuroslop("making random unit tests");
     srand(time(NULL));
 
+
     for (int i = 1; i <= COUNT_RANDOM_TESTS; i++) {
         x1 = NAN, x2 = NAN;
         solve1 = NAN, solve2 = NAN;
@@ -30,8 +31,9 @@ int unit_random() {
                 if (is_zero_rand(solve1) && is_zero_rand(solve2))
                     count_right_solves++;
                 else
-                    printf("test <%d/%d> wrong: first solving "
-                    "give [%lf], second solving give [%lf]\n", i, COUNT_RANDOM_TESTS, solve1, solve2);
+                    printf("test <%d/%d> " RED "wrong" DEFAULT ": first solving "
+                    "give [%lf], second solving give [%lf]\n [a] - [%lg], [b] - [%lg], [b] - [%lg]\n",
+                            i, COUNT_RANDOM_TESTS, solve1, solve2, rand_a, rand_b, rand_c);
                 break;
 
             case ONE_ROOT:
@@ -41,7 +43,9 @@ int unit_random() {
                 if (is_zero_rand(solve1))
                     count_right_solves++;
                 else
-                    printf("test <%d/%d> wrong: solving give [%lf]\n", i, COUNT_RANDOM_TESTS, solve1);
+                    printf("test <%d/%d> " RED "wrong" DEFAULT
+                          ": solving give [%lf]\n[a] - [%lg], [b] - [%lg], [b] - [%lg]\n",
+                            i, COUNT_RANDOM_TESTS, solve1, rand_a, rand_b, rand_c);
                 break;
 
             case UNLIMITED_ROOTS:
@@ -56,7 +60,7 @@ int unit_random() {
     }
 
     printf("Random units " GREEN "right " DEFAULT "in "
-            RED "{%d} " DEFAULT "from " RED "{%d} " DEFAULT
+            MAGENTA "{%d} " DEFAULT "from " MAGENTA "{%d} " DEFAULT
             "solves, where exists roots\n", count_right_solves, count_tests_withroots);
     return 0;
 }
@@ -77,25 +81,25 @@ double randoms() {
  * At the end, prints the total number of tests the program passed correctly.
  *
  */
-int unit_solving_test() {
-    char unit_str[MAXLINE] = {};
-    struct ReadNumsUnits test[MAXLINE] = {{0, 0, 0, 0, 0, 0}};
+bool unit_solving_test() {
+    struct ReadNumsUnits test[MAXLINE] = {{NAN, NAN, NAN, INIT, NAN, NAN}};
     int count_right_tests = 0;
     int i = 0;
 
-    neuroslop("units from UNIT_test.txt");
+    neuroslop("units from " TXT_UNITS_NUMS);
 
-    FILE *file = fopen("UNIT_test.txt", "rb");
-    while (fgets(unit_str, sizeof(unit_str), file) != NULL) {
-        test[i].x1ref = NAN;
-        test[i].x2ref = NAN;
-        sscanf(unit_str, "%lg %lg %lg %d %lg "
-            "%lg", &test[i].a, &test[i].b, &test[i].c, &test[i].real_count_roots, &test[i].x1ref, &test[i].x2ref);
+    FILE *file = fopen(TXT_UNITS_NUMS, "r");
+
+    if (file == NULL) {
+        printf(RED "File didnt read\n" DEFAULT);
+        return false;
+    }
+    while (fscanf(file, "%lg %lg %lg %d %lg %lg",
+        &test[i].a, &test[i].b, &test[i].c, &test[i].real_count_roots, &test[i].x1ref, &test[i].x2ref) == 6) {
         i++;
     }
     fclose(file);
 
-    i--;
     for (int j = 0; j < i; j++) {
         if (run_test_nums(test[j]))
             count_right_tests++;
@@ -104,8 +108,8 @@ int unit_solving_test() {
     }
 
     printf("Unit tests " GREEN "right" DEFAULT " in "
-           RED "{%d}" DEFAULT" from " RED"{%d} " DEFAULT "checks\n", count_right_tests, i);
-    return 0;
+           MAGENTA "{%d}" DEFAULT" from " MAGENTA"{%d} " DEFAULT "checks\n", count_right_tests, i);
+    return true;
 }
 
 
@@ -116,33 +120,33 @@ int unit_solving_test() {
  * Prints the final count of correctly parsed strings.
  *
  */
-int unit_check_str_isnum() {
-    struct ReadStrUnits test[MAXLINE] = {{"0", "0", "0", 0}};
+bool unit_check_str_isnum() {
+    struct ReadStrUnits test[MAXLINE] = {{"0", "0", "0", WRONG_PROMPT}};
     int right_tests = 0;
     int i = 0;
-    char unit_str[MAXLINE] = {};
 
     neuroslop("unit test on checking STR is NUMBERS");
 
-    FILE *file2 = fopen("UNIT_test_CHECK_NUM.txt", "r");
-
-    while (fgets(unit_str, sizeof(unit_str), file2) != NULL) {
-        sscanf(unit_str, "%s %s %s %d", test[i].a, test[i].b, test[i].c, &test[i].right_test);
+    FILE *file2 = fopen(TXT_UNITS_STRS, "r");
+    if (file2 == NULL) {
+        printf(RED "File didnt read\n" DEFAULT);
+        return false;
+    }
+    while (fscanf(file2, "%s %s %s %d", test[i].a, test[i].b, test[i].c, &test[i].right_test) == 4) {
         i++;
     }
     fclose(file2);
 
-    i--;
     for (int j = 0; j < i; j++) {
         if (test[j].right_test == (is_str_is_num(test[j].a) && is_str_is_num(test[j].b) && is_str_is_num(test[j].c)))
             right_tests++;
     }
 
-    printf("Program was read " GREEN "right " RED "{%d}" DEFAULT" from "
-            RED "{%d} " DEFAULT "unit test inputs\n\n", right_tests, i);
+    printf("Program was read " GREEN "right " MAGENTA "{%d}" DEFAULT" from "
+            MAGENTA "{%d} " DEFAULT "unit test inputs\n", right_tests, i);
     neuroslop("starting input");
 
-    return 0;
+    return true;
 }
 
 
@@ -179,6 +183,7 @@ bool run_test_nums(struct ReadNumsUnits test) {
                 check_right++;
             break;
 
+        case INIT:
         default:
             break;
         }
@@ -200,7 +205,6 @@ bool is_equal(double x, double y) {
 
 
 bool is_zero_rand(double num) {
-
     num = fabs(num);
     if (num <= RAND_EPS) {
         return true;
